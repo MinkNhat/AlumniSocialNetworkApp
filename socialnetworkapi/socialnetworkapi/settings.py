@@ -15,6 +15,15 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import pymysql
+import cloudinary
+
+# setup cloudinary
+cloudinary.config(
+    cloud_name="dbmwgavqz",
+    api_key="747824214758252",
+    api_secret="IjgCUhqhoxQhoiG1dcq-vWJk5wA",
+    secure=True
+)
 
 # pymsql setting
 pymysql.install_as_MySQLdb()
@@ -22,15 +31,19 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# change auth user default
 AUTH_USER_MODEL = 'socialnetworking.User'
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+# media root
+MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
+
+CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
 ALLOWED_HOSTS = []
 
@@ -44,7 +57,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'socialnetworking.apps.SocialnetworkingConfig'
+    'socialnetworking.apps.SocialnetworkingConfig',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
