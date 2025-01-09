@@ -59,7 +59,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'socialnetworking.apps.SocialnetworkingConfig',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'rest_framework',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

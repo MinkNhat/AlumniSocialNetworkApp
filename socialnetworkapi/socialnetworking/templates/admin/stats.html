@@ -1,0 +1,51 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+    <h1>THỐNG KÊ BÀI VIẾT THEO TAG</h1>
+    <ul>
+        {% for s in stats %}
+            <li><strong>{{ s.name }}</strong>: {{ s.count }}</li>
+        {% endfor %}
+    </ul>
+
+    <div style="width: 80%">
+        <canvas id="myChart"></canvas>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    window.onload = function () {
+        const ctx = document.getElementById('myChart');
+
+        let data = [];
+        let labels = [];
+
+        {% for s in stats %}
+            labels.push('{{ s.name }}');
+            data.push({{ s.count }});
+        {% endfor %}
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# Số lượng',
+                    data: data,
+                    borderWidth: 1,
+                    backgroundColor: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+{% endblock %}

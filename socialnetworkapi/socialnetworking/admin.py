@@ -1,7 +1,23 @@
 from django.contrib import admin
+from django.db.models import Count
+from django.template.response import TemplateResponse
 from socialnetworking.models import Post, Tag, Media
 from socialnetworking.val_form import MediaAdminForm
 from django.utils.html import mark_safe
+from django.urls import path
+
+
+class MySocialNetworkAdmin(admin.AdminSite):
+    site_header = 'Alumni Social Network'
+
+    def get_urls(self):
+        return [path('stats/', self.stats)] + super().get_urls()
+
+    def stats(self, request):
+        stats = Tag.objects.annotate(count=Count('post__id')).values('id', 'name', 'count')
+        return TemplateResponse(request, 'admin/stats.html', {
+            'stats': stats
+        })
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -44,9 +60,11 @@ class MediaAdmin(admin.ModelAdmin):
         }
 
 
-admin.site.register(Post, PostAdmin)
-admin.site.register(Tag)
-admin.site.register(Media, MediaAdmin)
+admin_site = MySocialNetworkAdmin(name='alumniSocialNetwork')
+
+admin_site.register(Post, PostAdmin)
+admin_site.register(Tag)
+admin_site.register(Media, MediaAdmin)
 
 
 
