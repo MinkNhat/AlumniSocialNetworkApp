@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 from django.template.response import TemplateResponse
-from socialnetworking.models import Post, Tag, Media
+from socialnetworking.models import Post, Tag, Media, Comment, User
 from socialnetworking.val_form import MediaAdminForm
 from django.utils.html import mark_safe
 from django.urls import path
@@ -64,6 +64,8 @@ admin_site = MySocialNetworkAdmin(name='alumniSocialNetwork')
 
 admin_site.register(Post, PostAdmin)
 admin_site.register(Tag)
+admin_site.register(Comment)
+admin_site.register(User)
 admin_site.register(Media, MediaAdmin)
 
 
