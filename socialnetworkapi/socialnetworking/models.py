@@ -85,17 +85,20 @@ class Comment(Interaction):
         return self.content
 
 
-class Emoticon(BaseModel):
-    name = models.CharField(max_length=50, unique=True)
-    icon = CloudinaryField()
+class Action(Interaction):
+    LIKE, HAHA, HEART, SAD = range(4)
+    ACTIONS = [
+        (LIKE, 'like'),
+        (HAHA, 'haha'),
+        (HEART, 'heart'),
+        (SAD, 'sad')
+    ]
+    type = models.SmallIntegerField(choices=ACTIONS, default=LIKE)
 
     def __str__(self):
-        return self.name
+        k, v = self.ACTIONS[self.type]
+        return v
 
 
-class Reaction(Interaction):
-    emoticon = models.ForeignKey(Emoticon, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user', 'post', 'emoticon')
 

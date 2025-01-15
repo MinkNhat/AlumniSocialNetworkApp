@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from socialnetworking.models import Tag, Post, Media, Comment, User
+from socialnetworking.models import Tag, Post, Media, Comment, User, Action
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,6 +42,10 @@ class PostDetailsSerializer(PostSerializer):
     tags = TagSerializer(many=True)
     user = UserSerializer()
 
+    def create(self, validated_data):
+        user = self.context['request'].user
+        return Post.objects.create(user=user, **validated_data)
+
     class Meta:
         model = PostSerializer.Meta.model
         fields = PostSerializer.Meta.fields + ['user', 'tags']
@@ -67,10 +71,14 @@ class MediaSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
         fields = '__all__'
 
 
+class ActionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Action
+        fields = ['id', 'type', 'created_date', 'updated_date', 'active']

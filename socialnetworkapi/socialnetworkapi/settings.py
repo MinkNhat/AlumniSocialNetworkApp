@@ -45,7 +45,7 @@ MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
 
 CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.2.10', '172.20.10.3', '172.16.3.192']
 
 
 # Application definition

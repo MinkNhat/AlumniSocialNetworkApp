@@ -24,9 +24,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Course API",
+        title="Alumni Socialnetwork API",
         default_version='v1',
-        description="APIs for CourseApp", contact=openapi.Contact(email="2251012102nhat@ou.edu.vn"),
+        description="APIs for alumni social network", contact=openapi.Contact(email="2251012102nhat@ou.edu.vn"),
         license=openapi.License(name="NguyenMinhNhat@2024"),
     ),
     public=True, permission_classes=(permissions.AllowAny,),
