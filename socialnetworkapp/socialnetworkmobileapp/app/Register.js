@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
-import ScreenWapper from '../components/ScreenWapper'
+import ScreenWrapper from '../components/ScreenWrapper'
 import { StatusBar } from 'expo-status-bar'
 import BackButton from '../components/BackButton'
 import Styles from '../styles/Styles'
@@ -19,6 +19,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false)
     const [err, setErr] = useState(false)
     const [errMessage, setErrMessage] = useState(null)
+    // const [avatar, setAvatar] = useState();
 
     const nav = useNavigation()
 
@@ -119,16 +120,16 @@ const Register = () => {
 
             for(let key in users) {
                 if(key!=='comfirm') {
-                    if(key==='avatar') {
-                        form.append('avatar', {
-                            uri: user.avatar.uri,
-                            name: user.avatar.fileName,
-                            type: user.avatar.type
-                        })
-                    } else {
-                        form.append(key, user[key])
-                    }
+                    form.append(key, user[key])
                 }
+            }
+
+            if(user.avatar) {
+                form.append('avatar', {
+                    uri: user.avatar.uri,
+                    name: user.avatar.fileName,
+                    type: user.avatar.type
+                })
             }
 
             setLoading(true)
@@ -151,7 +152,7 @@ const Register = () => {
     }
 
   return (
-    <ScreenWapper bg='white'>
+    <ScreenWrapper bg='white'>
     <StatusBar style='dark'/>
 
     <View style={Styles.container}>
@@ -163,7 +164,7 @@ const Register = () => {
                     <TouchableOpacity onPress={pickImage} style={styles.container}>
                         {user.avatar ? 
                         (<Image source={{ uri: user.avatar.uri }} style={styles.avatar}/>):
-                        (<Image source={require('../assets/avatar-default.png')} style={styles.avatar}/>)}
+                        (<Image source={require('../assets/images/avatar-default.png')} style={styles.avatar}/>)}
                         <View style={styles.chooseImageContainer}>
                             <Text style={styles.text}>Chọn ảnh đại diện</Text>
                             <Icon name={'camera'} size={20} />
@@ -194,7 +195,7 @@ const Register = () => {
         </ScrollView>
       </View>
   
-  </ScreenWapper>
+  </ScreenWrapper>
   )
 }
 

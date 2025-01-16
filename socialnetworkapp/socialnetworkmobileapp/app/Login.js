@@ -1,6 +1,6 @@
 import { View, Text, Pressable } from 'react-native'
 import React, { useContext, useState } from 'react'
-import ScreenWapper from '../components/ScreenWapper'
+import ScreenWrapper from '../components/ScreenWrapper'
 import BackButton from '../components/BackButton'
 import { StatusBar } from 'expo-status-bar'
 import Styles from '../styles/Styles'
@@ -95,7 +95,7 @@ const Login = () => {
     }
 
   return (
-    <ScreenWapper bg='white'>
+    <ScreenWrapper bg='white'>
       <StatusBar style='dark'/> 
 
       <View style={Styles.container}>
@@ -138,7 +138,7 @@ const Login = () => {
 
 
     
-    </ScreenWapper>
+    </ScreenWrapper>
   )
 }
 

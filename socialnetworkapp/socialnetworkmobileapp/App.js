@@ -34,8 +34,6 @@ const StackNavigator = () => {
 }
 
 const TabNavigator = () => {
-  const user = useContext(MyUserContext)
-
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen name="home" component={Home} options={{title: "Màn hình chính", tabBarIcon: () => <Icon name={'home'} size={20} />}} />
@@ -51,7 +49,6 @@ const [user, dispatch] = useReducer(MyUserReducers, null)
 const checkLoginStatus = async () => {
   try {
     const token = await getToken('token')
-    console.info(token)
     if (token) {
       let user = await authApis(token).get(endpoints['current-user']);
       dispatch({

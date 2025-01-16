@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
-import ScreenWapper from '../components/ScreenWapper'
+import ScreenWrapper from '../components/ScreenWrapper'
 import { StatusBar } from 'expo-status-bar'
 import { wp, hp } from '../configs/Common'
 import { Theme } from '../configs/Theme'
@@ -11,10 +11,10 @@ const Welcome = () => {
   const nav = useNavigation()
 
   return (
-    <ScreenWapper bg="white">
+    <ScreenWrapper bg="white">
       <StatusBar style="dark"/> 
       <View style={styles.container}>
-        <Image style={styles.imageWelcome} resizeMode="contain" source={require('../assets/welcome-image.png')}/>
+        <Image style={styles.imageWelcome} resizeMode="contain" source={require('../assets/images/welcome-image.png')}/>
 
         <View style={{gap: 20}}>
           <Text style={styles.title}>O-Alum</Text>
@@ -40,7 +40,7 @@ const Welcome = () => {
           </Pressable>
         </View>
       </View>
-    </ScreenWapper>
+    </ScreenWrapper>
   )
 }
 

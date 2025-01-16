@@ -16,6 +16,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import pymysql
 import cloudinary
+import ssl
+import certifi
 
 # setup cloudinary
 cloudinary.config(
@@ -168,3 +170,15 @@ OAUTH2_PROVIDER = {
 
 CLIENT_ID = 'JwJS86GVnKWpbWHAQi8X6O7e97MNoIhZ5eEoTByq'
 CLIENT_SECRET = 'iwtSU2T8VuJHf4wjUiOVdEH6wPGAoIlFgo07BjGVzJyIB8u8kMlOK4iD2RW0k6ArsonL2ANP17vAf2SESEVgP5ApYKJAJTSZxn7UnlixsdsMTtaLyHobMWR0LYZ60p9o'
+
+# Mail setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'aluminsocialnetwork@gmail.com'
+EMAIL_HOST_PASSWORD = 'sopg qfme htmp zanp'
+EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
+
+TIME_ZONE = 'Asia/Ho_Chi_Minh'  # Đặt múi giờ của bạn, ví dụ: Việt Nam (UTC+7)
+USE_TZ = True

@@ -21,6 +21,7 @@ import debug_toolbar
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from socialnetworking.views import CustomTokenView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -36,6 +37,7 @@ urlpatterns = [
     path('', include('socialnetworking.urls')),
     path('admin/', admin_site.urls),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    path('o/token/', CustomTokenView.as_view(), name='token'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

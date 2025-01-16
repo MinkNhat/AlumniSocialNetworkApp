@@ -20,6 +20,8 @@ const Input = (props) => {
         secureTextEntry={props.passwordField && !showPass}
         fontSize='18'
         autoCapitalize='none'
+        autoCorrect={false}
+        selectTextOnFocus={false}
         {...props}
         
       />

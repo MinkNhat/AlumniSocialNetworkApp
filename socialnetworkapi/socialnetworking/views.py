@@ -1,9 +1,18 @@
+import json
+from datetime import timedelta
+
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+from django.utils.timezone import now
 from rest_framework import viewsets, generics, status, permissions, parsers
+from rest_framework.exceptions import ValidationError
+
 from socialnetworking.models import Tag, Post, Media, User, Comment, Action
 from socialnetworking import serializers, paginators, perms
 from rest_framework.decorators import action
 from rest_framework.response import Response
 import mimetypes
+from oauth2_provider.views import TokenView
 
 
 class TagViewSet(viewsets.ViewSet, generics.ListAPIView):
@@ -110,6 +119,7 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
             for key, value in request.data.items():
                 if key.__eq__('password'):
                     u.set_password(value)
+                    u.password_changed = True
                 else:
                     setattr(u, key, value)
             u.save()
@@ -135,3 +145,21 @@ class MediaViewSet(viewsets.ViewSet, generics.DestroyAPIView, generics.UpdateAPI
         if self.action in ['destroy', 'update', 'partial_update']:
             return [perms.MediaPerms()]
         return [permissions.AllowAny()]
+
+
+class CustomTokenView(TokenView):
+    def post(self, request, *args, **kwargs):
+        body_data = json.loads(request.body)
+        username = body_data.get('username')
+        password = body_data.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user:
+            if user.role == 'TEACHER':
+                if not user.password_changed and now() > user.password_change_time + timedelta(minutes=1):
+                    return JsonResponse({
+                        "error": "invalid_grant",
+                        "error_description": "Your account is locked, please contact admin to support!"
+                    }, status=400)
+
+        return super().post(request, *args, **kwargs)
