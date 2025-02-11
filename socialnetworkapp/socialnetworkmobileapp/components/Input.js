@@ -14,7 +14,7 @@ const Input = (props) => {
         }
       
       <TextInput
-        style={{flex: 1}}
+        style={[{flex: 1}, props.inputStyles&&props.inputStyles]}
         placeholderTextColor={Theme.colors.textLight}
         ref={props.inputRef && props.inputRef}
         secureTextEntry={props.passwordField && !showPass}
@@ -22,6 +22,7 @@ const Input = (props) => {
         autoCapitalize='none'
         autoCorrect={false}
         selectTextOnFocus={false}
+        
         {...props}
         
       />

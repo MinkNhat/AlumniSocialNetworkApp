@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import { StatusBar } from 'expo-status-bar'
@@ -13,6 +13,7 @@ import { hp, wp } from '../configs/Common'
 import Icon from '../assets/icons'
 import { Theme } from '../configs/Theme'
 import { HelperText } from 'react-native-paper'
+import { validateField } from '../configs/ValidateInput'
 
 const Register = () => {
     const [user, setUser] = useState({})
@@ -33,6 +34,18 @@ const Register = () => {
         'last_name': {
             'title': 'Tên',
             'field': 'last_name',
+            'icon': 'userInfo',
+            'secure': false
+        },
+        'student_id': {
+            'title': 'Mã sinh viên',
+            'field': 'student_id',
+            'icon': 'userInfo',
+            'secure': false
+        },
+        'email': {
+            'title': 'Email',
+            'field': 'email',
             'icon': 'userInfo',
             'secure': false
         },
@@ -73,44 +86,24 @@ const Register = () => {
     }
 
     const validate = () => {
-        const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+        for(const key in users) {
+            const field = users[key].field
+            const value = user[field]
 
-        if(!user.last_name) {
+            const error = validateField(field, value, user)
+            if(error) {
+                setErr(true)
+                setErrMessage(error)
+                return false
+            }
+        }
+
+        if(!user.avatar) {
             setErr(true)
-            setErrMessage({'msg':'Vui lòng tên của bạn!', 'field':'last_name'})
+            setErrMessage({'msg':'Vui lòng chọn ảnh đại diện!', 'field':'avatar'})
             return false
         }
 
-        if(!user.username) {
-            setErr(true)
-            setErrMessage({'msg':'Vui lòng nhập tên tài khoản!', 'field':'username'})
-            return false
-        } 
-        
-        if(!user.password) {
-            setErr(true)
-            setErrMessage({'msg':'Vui lòng nhập mật khẩu!', 'field':'password'})
-            return false
-        }
-
-        if(!regex.test(user.password)) {
-            setErr(true)
-            setErrMessage({'msg':'Mật khẩu phải có ít nhất 6 ký tự ( bao gồm chữ cái và chữ số )', 'field':'password'})
-            return false
-        }
-
-        if(!user.comfirm) {
-            setErr(true)
-            setErrMessage({'msg':'Vui lòng nhập lại mật khẩu!', 'field':'comfirm'})
-            return false
-        }
-
-        if(user.password !== user.comfirm) {
-            setErr(true)
-            setErrMessage({'msg':'Mật khẩu xác nhận không khớp!', 'field':'comfirm'})
-            return false
-        }
-        
         return true
     }
 
@@ -134,7 +127,7 @@ const Register = () => {
 
             setLoading(true)
             try {
-                await APIs.post(endpoints['register'], form, {
+                await APIs.post(endpoints['users'], form, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -144,7 +137,11 @@ const Register = () => {
             } catch(ex) { 
                 setErr(true)
                 setErrMessage({'msg':'Tài khoản đã tồn tại!', 'field':'username'})
-                return false
+                // console.error(ex)
+                // if(ex.response) {
+                //     Alert.alert("Lỗi khi đăng ký", ex.response.data)
+                // }
+                // return false
             } finally {
                 setLoading(false)
             }
@@ -190,7 +187,7 @@ const Register = () => {
                     </HelperText>
                 }   
 
-                <Button loading={loading} title={'Đăng ký'} onPress={register} textStyle={{fontSize: '20'}}/>
+                <Button buttonStyle={{marginBottom: '40'}} loading={loading} title={'Đăng ký'} onPress={register} textStyle={{fontSize: '20'}}/>
             </KeyboardAvoidingView>
         </ScrollView>
       </View>

@@ -47,7 +47,14 @@ MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
 
 CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
-ALLOWED_HOSTS = ['192.168.2.10', '172.20.10.3', '172.16.3.192']
+ALLOWED_HOSTS = [
+    '192.168.2.6',
+    '172.20.10.3',
+    '172.16.3.192',
+    '172.16.40.10',
+    '172.16.139.160',
+    '192.168.1.91',
+]
 
 
 # Application definition
@@ -66,6 +73,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'debug_toolbar',
     'oauth2_provider',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -98,7 +106,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'socialnetworkapi.wsgi.application'
+ASGI_APPLICATION = "socialnetworkapi.asgi.application"
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -143,11 +157,12 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -180,5 +195,7 @@ EMAIL_HOST_USER = 'aluminsocialnetwork@gmail.com'
 EMAIL_HOST_PASSWORD = 'sopg qfme htmp zanp'
 EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
-TIME_ZONE = 'Asia/Ho_Chi_Minh'  # Đặt múi giờ của bạn, ví dụ: Việt Nam (UTC+7)
-USE_TZ = True
+
+
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB

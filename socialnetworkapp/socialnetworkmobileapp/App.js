@@ -8,7 +8,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from './app/Login';
 import Register from './app/Register';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Chatbox from './app/Chatbox';
 import UserProfile from './app/UserProfile';
 import Icon from './assets/icons';
 import { useContext, useEffect, useReducer, useState } from 'react';
@@ -18,6 +17,30 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authApis, endpoints } from './configs/APIs';
 import { getToken } from './configs/Common';
 import Home from './app/Home';
+import CreateNewPost from './app/CreateNewPost';
+import { db } from "./configs/Firebase";
+import { collection, getDocs } from "firebase/firestore";
+
+import {
+  configureReanimatedLogger,
+  ReanimatedLogLevel,
+} from 'react-native-reanimated';
+import PostDetails from './app/PostDetails';
+import { PaperProvider } from 'react-native-paper';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import ChatListScreen from './app/ChatListScreen';
+import ChatScreen from './app/ChatScreen';
+import ChangePassword from './app/ChangePassword';
+import CreateEventPost from './app/CreateEventPost';
+import CreateSurveyPost from './app/CreateSurveyPost';
+import TimeLine from './app/TimeLine';
+
+// config prevent warning from reanimated
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false, // default = true
+});
+
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -33,12 +56,43 @@ const StackNavigator = () => {
   );
 }
 
+const HomeStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name='home' component={Home}/>
+      <Stack.Screen name='create-new-post' component={CreateNewPost}/>
+      <Stack.Screen name='create-survey-post' component={CreateSurveyPost}/>
+      <Stack.Screen name='create-event-post' component={CreateEventPost}/>
+      <Stack.Screen name='time-line' component={TimeLine}/>
+      <Stack.Screen name='post-details' component={PostDetails} options={{presentation: 'modal'}}/>
+    </Stack.Navigator>
+  )
+}
+
+const ChatStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name='chatlist' component={ChatListScreen}/>
+      <Stack.Screen name='chatscreen' component={ChatScreen}/>
+    </Stack.Navigator>
+  )
+}
+
+const ProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name='user-profile' component={UserProfile}/>
+      <Stack.Screen name='change-password' component={ChangePassword}/>
+    </Stack.Navigator>
+  )
+}
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
-      <Tab.Screen name="home" component={Home} options={{title: "Màn hình chính", tabBarIcon: () => <Icon name={'home'} size={20} />}} />
-      <Tab.Screen name="chat" component={Chatbox} options={{title: "Chatbox", tabBarIcon: () => <Icon name={'home'} size={20} />}} />
-      <Tab.Screen name="profile" component={UserProfile} options={{title: "Tài khoản", tabBarIcon: () => <Icon name={'home'} size={20} />}} />
+      <Tab.Screen name="home-stack" component={HomeStackNavigator} options={{title: "Màn hình chính", tabBarIcon: () => <Icon name={'home'} size={20} />}} />
+      <Tab.Screen name="chat" component={ChatStackNavigator} options={{title: "Chatbox", tabBarIcon: () => <Icon name={'user'} size={20} />}} />
+      <Tab.Screen name="profile" component={ProfileStackNavigator} options={{title: "Tài khoản", tabBarIcon: () => <Icon name={'lock'} size={20} />}} />
     </Tab.Navigator>
   );
 }
@@ -67,7 +121,21 @@ useEffect(() => {
   checkLoginStatus();
 }, [])
 
+useEffect(() => {
+  const checkFirestore = async () => {
+      try {
+          const testDocs = await getDocs(collection(db, "test"));
+          console.log("Firestore Connected: ", testDocs.size);
+      } catch (error) {
+          console.error("Firestore Error:", error.message);
+      }
+  };
+  checkFirestore();
+}, []);
+
   return (
+    <ActionSheetProvider>
+    <PaperProvider>
     <SafeAreaProvider>
       <NavigationContainer>
         <MyUserContext.Provider value={user}>
@@ -77,5 +145,7 @@ useEffect(() => {
         </MyUserContext.Provider>
       </NavigationContainer>
     </SafeAreaProvider>
+    </PaperProvider>
+    </ActionSheetProvider>
   );
 }

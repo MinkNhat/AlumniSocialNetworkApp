@@ -1,5 +1,6 @@
 export const Theme = {
     colors: {
+        primaryLight: "#daedd2",
         primary: "#00C26F",
         primaryDark: "#00AC62",
         dark: "#3E3E3E",
@@ -11,9 +12,14 @@ export const Theme = {
         textDrak: "#1D1D1D",
 
         rose: "#ef4444",
-        roseLight: "#f87171"
+        roseLight: "#f87171",
+
+        yellow: '#FFCC33',
+        blue: '#3377FF'
     },
     fonts: {
+        extraLight: "400",
+        light: "500",
         medium: "600",
         semiBold: "700",
         bold: "800",

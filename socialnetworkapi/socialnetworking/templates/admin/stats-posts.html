@@ -1,0 +1,65 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+    <h1>THỐNG KÊ BÀI VIẾT THEO NĂM</h1>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Năm/tháng</th>
+                <th>Số lượng bài viết</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in stats %}
+            <tr>
+                <td>{{ s.year_month }}</td>
+                <td>{{ s.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="width: 80%">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        window.onload = function () {
+            const ctx = document.getElementById('myChart');
+
+            let labels = [];
+            let data = [];
+
+            {% for s in stats %}
+                labels.push("{{ s.year_month }}");
+                data.push({{ s.count }});
+            {% endfor %}
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Số lượng bài viết',
+                        data: data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+{% endblock %}

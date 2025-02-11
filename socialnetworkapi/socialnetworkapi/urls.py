@@ -35,7 +35,10 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', include('socialnetworking.urls')),
+    # path("api/", include("socialnetworking.urls")),
     path('admin/', admin_site.urls),
+    # path("send-message/", send_message, name="send-message"),
+    # path("get-messages/<int:receiver_id>/", get_messages, name="get-messages"),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('o/token/', CustomTokenView.as_view(), name='token'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
@@ -43,4 +46,5 @@ urlpatterns = [
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('__debug__/', include(debug_toolbar.urls)),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
 ]

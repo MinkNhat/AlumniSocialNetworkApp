@@ -25,6 +25,15 @@ import Video from './Video';
 import Eye from './Eye';
 import NonEye from './NoneEye';
 import UserInfo from './UserInfo';
+import Sad from'./Sad';
+import Smile from './Smile';
+import Like from './Like';
+import Add from './Add';
+import Canledar from './Canledar';
+import Star from './Star';
+import List from './List';
+
+
 
 const icons = { 
     home: Home,
@@ -50,7 +59,15 @@ const icons = {
     video: Video,
     eye: Eye,
     nonEye: NonEye,
-    userInfo: UserInfo
+    userInfo: UserInfo,
+    sad: Sad,
+    smile: Smile,
+    like: Like,
+    add: Add,
+    canledar: Canledar,
+    star: Star,
+    list: List,
+
 }
 
 const Icon = ({name, ...props}) => {

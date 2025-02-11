@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, Alert } from 'react-native'
 import React, { useContext, useState } from 'react'
 import ScreenWrapper from '../components/ScreenWrapper'
 import BackButton from '../components/BackButton'
@@ -14,6 +14,7 @@ import Constants from 'expo-constants';
 import { MyDispatchContext } from '../configs/MyUserContext'
 import { getToken, hp, saveToken } from '../configs/Common'
 import { HelperText } from 'react-native-paper'
+import { validateField } from '../configs/ValidateInput'
 
 const Login = () => {
     const { CLIENT_ID, CLIENT_SECRET } = Constants.expoConfig.extra
@@ -45,18 +46,17 @@ const Login = () => {
     }
 
     const validate = () => {
-        if(!user.username) {
-            setErr(true)
-            setErrMessage({'msg':'Vui lòng nhập tên tài khoản!', 'field':'username'})
-            return false
-        } 
-        
-        if(!user.password) {
-            setErr(true)
-            setErrMessage({'msg':'Vui lòng nhập mật khẩu!', 'field':'password'})
-            return false
+        for(const key in users) {
+            const field = users[key].field
+            const value = user[field]
+
+            const error = validateField(field, value, user, true)
+            if(error) {
+                setErr(true)
+                setErrMessage(error)
+                return false
+            }
         }
-        
         return true
     }
 
@@ -73,6 +73,8 @@ const Login = () => {
                     'client_id': CLIENT_ID,
                     'client_secret': CLIENT_SECRET
                 })
+
+                console.info(res.data)
     
                 await saveToken('token', res.data.access_token)
                 
@@ -85,8 +87,11 @@ const Login = () => {
                 }, 100)
             
             } catch(ex) {
-                setErr(true)
-                setErrMessage({'msg':'Mật khẩu không chính xác!', 'field':'password'})
+                // setErr(true)
+                // setErrMessage({'msg':'Mật khẩu không chính xác!', 'field':'password'})
+                if(ex.response) {
+                    Alert.alert("Lỗi đăng nhập", ex.response.data.error_description)
+                }
                 return false
             } finally {
                 setLoading(false)

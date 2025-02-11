@@ -7,7 +7,8 @@ import { useNavigation } from '@react-navigation/native'
 const BackButton = ({
   size=28,
   title='',
-  backTo=''
+  backTo='',
+  style
 }) => {
     const nav = useNavigation()
   return (
@@ -16,7 +17,7 @@ const BackButton = ({
         <Icon name='arrowLeft' strokeWidth={2.5} color={Theme.colors.text} size={size}/>
       </Pressable>
 
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, style]}>{title}</Text>
     </View>
   )
 }

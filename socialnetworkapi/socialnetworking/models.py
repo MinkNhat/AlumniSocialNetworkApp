@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(username, email, password, **extra_fields)
 
 
-class User(AbstractUser, BaseModel):
+class User(AbstractUser):
     ROLE_CHOICES = [
         ('ALUMNI', 'Alumni'),
         ('TEACHER', 'Teacher'),
@@ -52,29 +52,44 @@ class User(AbstractUser, BaseModel):
     birth = models.DateField(null=True, blank=True)
     introduce = models.TextField(null=True, blank=True)
 
+    student_id = models.CharField(max_length=20, null=True, blank=True, unique=True)
+    is_verify = models.BooleanField(default=False)
+    updated_date = models.DateTimeField(auto_now=True)
     password_changed = models.BooleanField(default=False)
     password_change_time = models.DateTimeField(null=True, blank=True)
 
     objects = CustomUserManager()
 
+    # ưu điểm so với perfomrm_create trong views: sử dụng được mọi nơi ( api hoặc amdin site )
     def save(self, *args, **kwargs):
         if self.role == 'ADMIN':
             self.is_staff = True
             self.is_superuser = True
+            self.is_verify = True
         if self.pk is None and self.role == 'TEACHER':  # pk = None khi tạo user mới
+            self.is_verify = True
             self.set_password('Ou@12345')
             self.password_change_time = now()
             send_mail(
                 subject='Welcome to Alumni Network',
-                message=f'Hello {self.username},\n\n'
-                        f'Your account has been created with the following credentials:\n'
+                message=f'Xin chào {self.username},\n\n'
+                        f'Tài khoản của bạn đã được cấp bởi quản trị viên, thông tin tài khoản \n'
                         f'Username: {self.username}\n'
                         f'Password: Ou@12345\n\n'
-                        f'Please change your password after logging in.',
+                        f'Vui lòng đổi mật khẩu khi đăng nhập trong lần đầu tiên\n'
+                        f'Lưu ý: Tài khoản của bạn sẽ bị khoá sau 24h nếu không đổi mật khẩu\n',
                 from_email='admin@alumninetwork.com',
                 recipient_list=[self.email],
                 fail_silently=False,
             )
+        if self.pk is None and self.role == "ALUMNI":
+            pass
+            # if not self.student_id:
+            #     raise ValueError("Student ID is required")
+            # valid_student_ids = ["SV001", "SV002", "SV003"]
+            # if self.student_id in valid_student_ids and not User.objects.filter(student_id=self.student_id).exists():
+            #     raise ValueError("Invalid or already used Student ID")
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -96,9 +111,18 @@ class Tag(BaseModel):
         return self.name
 
 
-class Post(BaseModel):
-    caption = models.TextField()
+class BasePost(BaseModel):
+    caption = models.TextField(null=False, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.caption
+
+
+class Post(BasePost):
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
@@ -106,8 +130,36 @@ class Post(BaseModel):
 
     def get_tags(self):
         return ", ".join([tag.name for tag in self.tags.all()])
-
     get_tags.short_description = "Tags"  # Đổi title hiển thị trong trang admin
+
+
+class SurveyPost(BasePost):
+    choices = models.JSONField()
+
+    def __str__(self):
+        return self.caption
+
+
+class SurveyResponse(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    survey = models.ForeignKey(SurveyPost, on_delete=models.CASCADE, related_name='responses')
+    choice = models.CharField(max_length=255)
+
+    class Meta:
+        unique_together = ('user', 'survey')
+
+    def __str__(self):
+        return self.choice
+
+
+class EventPost(BasePost):
+    name = models.CharField(null=False, max_length=100)
+    date = models.DateTimeField(null=True)
+    location = models.CharField(max_length=255, null=True)
+    attendees = models.ManyToManyField("User", related_name="attendees", blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Media(BaseModel):
@@ -118,10 +170,10 @@ class Media(BaseModel):
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     media_type = models.CharField(max_length=10, choices=MEDIA_TYPE_CHOICES)
-    file = models.FileField(upload_to='posts/media/%Y/%m/')
+    file = CloudinaryField(resource_type='auto', null=False)
 
     def __str__(self):
-        return self.file.name
+        return str(self.file)
 
 
 class Interaction(BaseModel):
