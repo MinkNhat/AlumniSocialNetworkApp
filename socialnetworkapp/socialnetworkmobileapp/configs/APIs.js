@@ -7,6 +7,7 @@ export const endpoints = {
     'login': '/o/token/',
     'current-user': '/users/current-user/',
     'users': '/users/',
+    'user-info': (userId) => `/users/${userId}`,
     'posts': '/posts/',
     'post-details': (postId) => `/posts/${postId}/`,
     'media': (postId) => `/posts/${postId}/media/`,

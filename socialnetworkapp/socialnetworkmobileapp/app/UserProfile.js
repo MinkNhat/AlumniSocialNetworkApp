@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MyDispatchContext, MyUserContext } from '../configs/MyUserContext'
 import Styles from '../styles/Styles'
 
@@ -19,12 +19,11 @@ const UserProfile = () => {
     const user = useContext(MyUserContext)
     const dispatch = useContext(MyDispatchContext)
     const nav = useNavigation()
-    const countPost = 0
+    const [countPost, setCountPost] = useState(0)
 
     const countPosts = async () => {
       let res = await APIs.get(endpoints['timeline'](user.id))
-      countPost = res.data.length()
-      console.log(res.data.length)
+      setCountPost(res.data.count)
   }
 
     const logout = async () => {
@@ -49,13 +48,15 @@ const UserProfile = () => {
             {getFullName(user.first_name, user.last_name)}
           </Text>
           <View style={styles.infoView}>
-            <TouchableOpacity>
-              <Text style={styles.count}>0</Text>
-              <Text style={styles.text}>Bài viết</Text>
+            <TouchableOpacity onPress={() => 
+              nav.navigate('time-line', {targetUser: user})
+            }>
+              <Text style={styles.count}>{countPost}</Text>
+              <Text style={styles.text}>Bài viết</Text> 
             </TouchableOpacity>
             
             <TouchableOpacity>
-              <Text style={styles.count}>0</Text>
+              <Text style={styles.count}>0</Text> 
               <Text style={styles.text}>Bạn bè</Text>
             </TouchableOpacity>
           </View>

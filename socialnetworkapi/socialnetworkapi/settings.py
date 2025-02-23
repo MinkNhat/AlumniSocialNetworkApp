@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
+import os
 from pathlib import Path
 import pymysql
 import cloudinary
@@ -194,8 +194,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'aluminsocialnetwork@gmail.com'
 EMAIL_HOST_PASSWORD = 'sopg qfme htmp zanp'
 EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
-
-
-
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB

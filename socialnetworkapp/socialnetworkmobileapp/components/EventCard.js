@@ -35,11 +35,15 @@ const EventCard = ({
     <View style={[styles.container, hasShadow && shawdowStyles]}>
       <View style={styles.header}>
             <View style={styles.userInfo}>
-                <Avatar
-                    size={hp(4.5)}
-                    rounded={Theme.radius.md} 
-                    uri={event?.user?.avatar}
-                />
+                <TouchableOpacity onPress={() => {
+                    nav.navigate('time-line', {targetUser: event?.user})
+                }}>
+                    <Avatar
+                        size={hp(4.5)}
+                        rounded={Theme.radius.md} 
+                        uri={event?.user?.avatar}
+                    />
+                </TouchableOpacity>
                 <View style={{gap: 4}}>
                     <Text style={styles.username}>{getFullName(event?.user?.first_name, event?.user?.last_name)}</Text>
                     <Text style={styles.postTime}>{getTimeFromNow(event?.created_date)}</Text>

@@ -83,6 +83,7 @@ const ProfileStackNavigator = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name='user-profile' component={UserProfile}/>
       <Stack.Screen name='change-password' component={ChangePassword}/>
+      <Stack.Screen name='time-line' component={TimeLine}/>
     </Stack.Navigator>
   )
 }

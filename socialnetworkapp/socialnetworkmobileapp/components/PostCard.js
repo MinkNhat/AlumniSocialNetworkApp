@@ -31,7 +31,6 @@ const PostCard = ({
     const user = useContext(MyUserContext)
     const nav = useNavigation()
     const [visibleMenu, setVisibleMenu] = useState(false)
-    // const WEBSOCKET_URL = 'ws://192.168.2.6:8000/ws/posts/'
     const [socket, setSocket] = useState(null)
     const [showActionMenu, setShowActionMenu] = useState(false)
     const { WEBSOCKET_URL } = Constants.expoConfig.extra
@@ -200,11 +199,15 @@ const PostCard = ({
     <View style={[styles.container, hasShadow && shawdowStyles]}>
       <View style={styles.header}>
             <View style={styles.userInfo}>
-                <Avatar
-                    size={hp(4.5)}
-                    rounded={Theme.radius.md} 
-                    uri={post?.user?.avatar}
-                />
+                <TouchableOpacity onPress={() => {
+                    nav.navigate('time-line', {targetUser: post?.user})}
+                }>
+                    <Avatar
+                        size={hp(4.5)}
+                        rounded={Theme.radius.md} 
+                        uri={post?.user?.avatar}
+                    />
+                </TouchableOpacity>
                 <View style={{gap: 4}}>
                     <Text style={styles.username}>{getFullName(post?.user?.first_name, post?.user?.last_name)}</Text>
                     <Text style={styles.postTime}>{getTimeFromNow(post?.created_date)}</Text>

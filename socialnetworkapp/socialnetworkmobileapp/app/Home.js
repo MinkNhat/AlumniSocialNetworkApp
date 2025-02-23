@@ -17,6 +17,8 @@ const Home = () => {
   const user = useContext(MyUserContext)
   const nav = useNavigation()
   const [loading, setLoading] = useState(false)
+  const [mixItems, setMixItems] = useState([])
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
 
   const [posts, setPosts] = useState([])
   const [postPage, setPostPage] = useState(1)
@@ -30,9 +32,9 @@ const Home = () => {
   const [surveyPage, setSurveyPage] = useState(1)
   const [hasMoreSurvey, setHasMoreSurvey] = useState(true)
 
-  const mixItems = [...posts, ...events, ...surveys].sort(
-    (a, b) => new Date(b.created_date) - new Date(a.created_date)
-  )
+  // const mixItems = [...posts, ...events, ...surveys].sort(
+  //   (a, b) => new Date(b.created_date) - new Date(a.created_date)
+  // )
  
   const loadPosts = async () => {
     setLoading(true)
@@ -43,11 +45,15 @@ const Home = () => {
       
         if(postPage > 1) {
           setPosts(current => [...current, ...newPosts])
+          setMixItems(current => [...current, ...newPosts])
         } else {
           setPosts(newPosts)
+          if(isFirstLoad) {
+            setMixItems(current => [...current, ...newPosts])
+          }
         }
 
-        if (res.data.next === null) {
+        if (!res.data.next) {
           setPostPage(0)
           setHasMorePost(false)
         }
@@ -68,8 +74,12 @@ const Home = () => {
       
         if(eventPage > 1) {
           setEvents(current => [...current, ...newEvents])
+          setMixItems(current => [...current, ...newEvents])
         } else {
           setEvents(newEvents)
+          if(isFirstLoad) {
+            setMixItems(current => [...current, ...newEvents])
+          }
         }
 
         if (res.data.next === null) {
@@ -90,11 +100,15 @@ const Home = () => {
       if(surveyPage > 0) {
         let res = await APIs.get(`${endpoints['surveys']}?page=${surveyPage}`)
         let newSurveys = res.data.results.map(survey => ({ ...survey, type: "survey" }))
-      
+
         if(surveyPage > 1) {
           setSurveys(current => [...current, ...newSurveys])
+          setMixItems(current => [...current, ...newSurveys])
         } else {
-          setSurveys(newSurveys)
+          setSurveys(newSurveys)          
+          if(isFirstLoad) {
+            setMixItems(current => [...current, ...newSurveys])
+          }
         }
 
         if (res.data.next === null) {
@@ -111,24 +125,24 @@ const Home = () => {
 
   const loadMoreData = () => {
     if (!loading) {
-      if (postPage > 0) setPostPage(postPage + 1)
-      if (eventPage > 0) setEventPage(eventPage + 1)
-      if (surveyPage > 0) setSurveyPage(surveyPage + 1)
+      if (postPage > 0 && hasMorePost && posts.length>7) setPostPage(postPage + 1)
+      if (eventPage > 0 && hasMoreEvent && events.length>7) setEventPage(eventPage + 1)
+      if (surveyPage > 0 && hasMoreSurvey && surveys.length>7) setSurveyPage(surveyPage + 1)
     }
   }
 
   const refresh = () => {
+    setMixItems([])
+    setIsFirstLoad(true)
+
     setPostPage(1)
     setHasMorePost(true)
-    loadPosts()
 
     setEventPage(1)
     setHasMoreEvent(true)
-    loadEvents()
 
     setSurveyPage(1)
     setHasMoreSurvey(true)
-    loadSurveys()
   }
 
   useEffect(() => {
@@ -142,6 +156,15 @@ const Home = () => {
   useEffect(() => {
     loadSurveys()
   }, [surveyPage])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      setMixItems(current => 
+          [...current].sort((a, b) => new Date(b.created_date) - new Date(a.created_date))
+      )
+      setIsFirstLoad(false)
+    }
+}, [])
 
   const deletePost = (postId) => {
     setPosts(posts => posts.filter(post => post.id !== postId))
@@ -176,7 +199,7 @@ const Home = () => {
               <Icon name={'plus'} size={hp(3.2)} strokeWidth={2} color={Theme.colors.text}/>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {nav.navigate('time-line')}}>
+            <TouchableOpacity onPress={() => {nav.navigate('time-line', targetUser={...user})}}>
               {user.avatar? 
                 <Avatar 
                   uri={user.avatar}
@@ -211,7 +234,8 @@ const Home = () => {
           }
           onEndReached={loadMoreData}
           refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh}/>}
-          ListFooterComponent={hasMorePost || hasMoreEvent || hasMoreSurvey ? (
+          ListFooterComponent={ hasMorePost || hasMoreEvent || hasMoreSurvey ? 
+            (
             <View style={{magrinVertical: 30}}>
               <Loading/>
             </View>

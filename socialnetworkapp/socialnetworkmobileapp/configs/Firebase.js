@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
-import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp, limit } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,4 +25,4 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export { db, storage, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp };
+export { db, storage, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp, limit };

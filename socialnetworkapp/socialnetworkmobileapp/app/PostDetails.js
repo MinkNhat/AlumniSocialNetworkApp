@@ -22,8 +22,6 @@ const PostDetails = () => {
     const [editingCommentId, setEditingCommentId] = useState(null)
     const [updatedCommentId, setUpdatedCommentId] = useState(null)
     const { WEBSOCKET_URL } = Constants.expoConfig.extra
-    // const WEBSOCKET_URL = 'ws://192.168.2.6:8000/ws/posts/'
-
 
     const loadComments = async () => {
         setLoading(true)

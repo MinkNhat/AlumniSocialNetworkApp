@@ -75,11 +75,15 @@ const SurvyCard = ({
     <View style={[styles.container, hasShadow && shawdowStyles]}>
       <View style={styles.header}>
             <View style={styles.userInfo}>
-                <Avatar
-                    size={hp(4.5)}
-                    rounded={Theme.radius.md} 
-                    uri={survey?.user?.avatar}
-                />
+                <TouchableOpacity onPress={() => {
+                    nav.navigate('time-line', {targetUser: survey?.user})
+                }}>
+                    <Avatar
+                        size={hp(4.5)}
+                        rounded={Theme.radius.md} 
+                        uri={survey?.user?.avatar}
+                    />
+                </TouchableOpacity>
                 <View style={{gap: 4}}>
                     <Text style={styles.username}>{getFullName(survey?.user?.first_name, survey?.user?.last_name)}</Text>
                     <Text style={styles.postTime}>{getTimeFromNow(survey?.created_date)}</Text>

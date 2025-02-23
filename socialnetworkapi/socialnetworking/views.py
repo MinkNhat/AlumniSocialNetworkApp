@@ -126,7 +126,7 @@ class PostViewSet(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIVi
         post.save()
 
 
-class UserViewSet(viewsets.ViewSet, generics.CreateAPIView, generics.ListAPIView):
+class UserViewSet(viewsets.ViewSet, generics.CreateAPIView, generics.ListAPIView, generics.RetrieveAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = serializers.UserSerializer
     parser_classes = [parsers.MultiPartParser, parsers.JSONParser]
@@ -147,8 +147,11 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView, generics.ListAPIView
     @action(methods=['get'], url_path='user-posts', detail=True)
     def get_user_posts(self, request, pk):
         user = get_object_or_404(User, pk=pk)
-        posts = Post.objects.filter(user=user, active=True)
-        return Response(serializers.PostSerializer(posts, many=True, context={'request': request}).data)
+        posts = Post.objects.filter(user=user, active=True).order_by('-created_date')
+        paginator = paginators.ItemPaginator()
+        paginated_posts = paginator.paginate_queryset(posts, request)
+        return paginator.get_paginated_response(serializers.PostSerializer(paginated_posts, many=True).data)
+        # return Response(serializers.PostSerializer(posts, many=True, context={'request': request}).data)
 
     # Khi tạo user mới là alumni, xác thực thông tin qua student_id
     # sử dụng perform create do sinh viên tự tạo, kh tạo qua trang admin

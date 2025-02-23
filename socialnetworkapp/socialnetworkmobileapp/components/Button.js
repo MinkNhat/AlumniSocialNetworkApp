@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Theme } from '../configs/Theme'
 import { hp } from '../configs/Common'
 import Loading from './Loading'
+import Icon from '../assets/icons'
 
 
 const Button = ({
@@ -12,6 +13,7 @@ const Button = ({
     onPress=()=>{},
     loading = false,
     hasShadow = true,
+    icon = null
 }) => {
     const shadowStyle = {
         shadowColor: Theme.colors.dark,
@@ -30,9 +32,10 @@ const Button = ({
     }
 
   return (
-    <Pressable onPress={onPress} style={[styles.button, buttonStyle, hasShadow && shadowStyle]}>
+    <TouchableOpacity onPress={onPress} style={[styles.button, buttonStyle, hasShadow && shadowStyle]}>
       <Text style={[styles.text, textStyle]}>{title}</Text>
-    </Pressable>
+      {icon && <Icon name={icon?.name} size={icon?.size}/>}
+    </TouchableOpacity>
   )
 }
 

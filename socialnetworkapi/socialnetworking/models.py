@@ -50,7 +50,7 @@ class User(AbstractUser):
     cover_image = CloudinaryField(null=True, blank=True)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
     birth = models.DateField(null=True, blank=True)
-    introduce = models.TextField(null=True, blank=True)
+    introduce = models.CharField(max_length=50, null=True, blank=True)
 
     student_id = models.CharField(max_length=20, null=True, blank=True, unique=True)
     is_verify = models.BooleanField(default=False)
