@@ -34,7 +34,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('', include('socialnetworking.urls')),
+    path('', include('socialnetworking.socialnetworkapi.urls')),
     # path("api/", include("socialnetworking.urls")),
     path('admin/', admin_site.urls),
     # path("send-message/", send_message, name="send-message"),
