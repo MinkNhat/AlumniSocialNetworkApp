@@ -10,7 +10,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
-from socialnetworkapi import settings
+from socialnetworkapi.socialnetworkapi import settings
 from socialnetworkapi.socialnetworking.models import Tag, Post, Media, User, Comment, Action, EventPost, SurveyPost, SurveyResponse
 from socialnetworkapi.socialnetworking import serializers, paginators, perms
 from rest_framework.decorators import action
