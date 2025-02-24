@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'socialnetworking.apps.SocialnetworkingConfig',
+    'socialnetworkapi.socialnetworking.apps.SocialnetworkingConfig',
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
