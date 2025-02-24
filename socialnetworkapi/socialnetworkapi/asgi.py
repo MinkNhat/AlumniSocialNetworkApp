@@ -11,7 +11,7 @@ import os
 
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'socialnetworkapi.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'socialnetworkapi.socialnetworkapi.settings')
 django.setup()
 
 from socialnetworkapi.routing import application

@@ -110,7 +110,7 @@ TEMPLATES = [
 ]
 
 # WSGI_APPLICATION = 'socialnetworkapi.wsgi.application'
-ASGI_APPLICATION = "socialnetworkapi.asgi.application"
+ASGI_APPLICATION = "socialnetworkapi.socialnetworkapi.asgi.application"
 
 CHANNEL_LAYERS = {
     "default": {
