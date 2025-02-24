@@ -7,8 +7,8 @@ from django.db.models.functions import TruncYear, TruncMonth, ExtractYear, Extra
 from django.template.response import TemplateResponse
 from django.utils.timezone import now, localtime
 
-from socialnetworking.models import Post, Tag, Media, Comment, User, Action, EventPost
-from socialnetworking.val_form import MediaAdminForm
+from socialnetworkapi.socialnetworking.models import Post, Tag, Media, Comment, User, Action, EventPost
+from socialnetworkapi.socialnetworking.val_form import MediaAdminForm
 from django.utils.html import mark_safe
 from django.urls import path
 from django.contrib.auth.models import Group, Permission

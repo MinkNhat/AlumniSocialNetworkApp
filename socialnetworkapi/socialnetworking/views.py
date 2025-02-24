@@ -11,8 +11,8 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
 from socialnetworkapi import settings
-from socialnetworking.models import Tag, Post, Media, User, Comment, Action, EventPost, SurveyPost, SurveyResponse
-from socialnetworking import serializers, paginators, perms
+from socialnetworkapi.socialnetworking.models import Tag, Post, Media, User, Comment, Action, EventPost, SurveyPost, SurveyResponse
+from socialnetworkapi.socialnetworking import serializers, paginators, perms
 from rest_framework.decorators import action
 from rest_framework.response import Response
 import mimetypes
@@ -20,10 +20,10 @@ from oauth2_provider.views import TokenView
 
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from socialnetworkapi.firebase_config import db
+from socialnetwork.apisocialnetworkapi.firebase_config import db
 import datetime
 
-from socialnetworking.serializers import EventPostSerializer, SurveyPostSerializer, SurveyResponseSerializer
+from socialnetworkapi.socialnetworking.serializers import EventPostSerializer, SurveyPostSerializer, SurveyResponseSerializer
 
 
 class TagViewSet(viewsets.ViewSet, generics.ListAPIView):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from socialnetworking.models import Tag, Post, Media, Comment, User, Action, SurveyPost, EventPost, SurveyResponse
+from socialnetworkapi.socialnetworking.models import Tag, Post, Media, Comment, User, Action, SurveyPost, EventPost, SurveyResponse
 
 
 class UserSerializer(serializers.ModelSerializer):
