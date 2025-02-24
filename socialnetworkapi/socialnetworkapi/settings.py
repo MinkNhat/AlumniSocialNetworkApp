@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 import os
 from pathlib import Path
+
+import dj_database_url
 import pymysql
 import cloudinary
 import ssl
@@ -40,7 +42,8 @@ AUTH_USER_MODEL = 'socialnetworking.User'
 SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
 # media root
 MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
@@ -48,12 +51,13 @@ MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
 CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
 ALLOWED_HOSTS = [
-    '192.168.2.6',
-    '172.20.10.3',
-    '172.16.3.192',
-    '172.16.40.10',
-    '172.16.139.160',
-    '192.168.1.91',
+    # '192.168.2.6',
+    # '172.20.10.3',
+    # '172.16.3.192',
+    # '172.16.40.10',
+    # '172.16.139.160',
+    # '192.168.1.91',
+    '*'
 ]
 
 
@@ -105,7 +109,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'socialnetworkapi.wsgi.application'
+# WSGI_APPLICATION = 'socialnetworkapi.wsgi.application'
 ASGI_APPLICATION = "socialnetworkapi.asgi.application"
 
 CHANNEL_LAYERS = {
@@ -117,14 +121,18 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'socialnetworkdb',
+#         'USER': 'root',
+#         'PASSWORD': 'Admin@123',
+#         'HOST': ''
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'socialnetworkdb',
-        'USER': 'root',
-        'PASSWORD': 'Admin@123',
-        'HOST': ''
-    }
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
 }
 
 
@@ -182,9 +190,6 @@ INTERNAL_IPS = [
 OAUTH2_PROVIDER = {
     'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
 }
-
-CLIENT_ID = 'JwJS86GVnKWpbWHAQi8X6O7e97MNoIhZ5eEoTByq'
-CLIENT_SECRET = 'iwtSU2T8VuJHf4wjUiOVdEH6wPGAoIlFgo07BjGVzJyIB8u8kMlOK4iD2RW0k6ArsonL2ANP17vAf2SESEVgP5ApYKJAJTSZxn7UnlixsdsMTtaLyHobMWR0LYZ60p9o'
 
 # Mail setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

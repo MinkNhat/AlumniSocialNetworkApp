@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cfff778a-cc19-4530-a7a1-ca0ff19e7576" name="Changes" comment="" />
+    <list default="true" id="cfff778a-cc19-4530-a7a1-ca0ff19e7576" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialnetworkapi/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +27,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/macbook/Learn/DH22CS02/AlumniSocialNetworkApp"
+    "last_opened_file_path": "/Users/macbook/Learn/AlumniSocialNetworkApp",
+    "nodejs_package_manager_path": "npm"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -35,7 +40,11 @@
       <option name="presentableId" value="Default" />
       <updated>1735897012056</updated>
       <workItem from="1735897014518" duration="4000" />
+      <workItem from="1740412187442" duration="70000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
