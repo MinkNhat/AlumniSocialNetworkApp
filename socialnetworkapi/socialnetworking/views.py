@@ -20,7 +20,7 @@ from oauth2_provider.views import TokenView
 
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from socialnetwork.apisocialnetworkapi.firebase_config import db
+from socialnetworkapi.socialnetworkapi.firebase_config import db
 import datetime
 
 from socialnetworkapi.socialnetworking.serializers import EventPostSerializer, SurveyPostSerializer, SurveyResponseSerializer
