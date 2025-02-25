@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cfff778a-cc19-4530-a7a1-ca0ff19e7576" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/socialnetworkapi/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +47,7 @@
       <updated>1735897012056</updated>
       <workItem from="1735897014518" duration="4000" />
       <workItem from="1740412187442" duration="70000" />
-      <workItem from="1740482040558" duration="321000" />
+      <workItem from="1740482040558" duration="540000" />
     </task>
     <servers />
   </component>

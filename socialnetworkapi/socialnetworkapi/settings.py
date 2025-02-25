@@ -36,7 +36,7 @@ pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # change auth user default
-AUTH_USER_MODEL = 'socialnetworking.User'
+AUTH_USER_MODEL = 'socialnetworking.socialnetworkapi.User'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx'
