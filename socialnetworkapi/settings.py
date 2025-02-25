@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 import os
 from pathlib import Path
-
 import dj_database_url
 import pymysql
 import cloudinary
@@ -72,7 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'socialnetworkapi.socialnetworking.apps.SocialnetworkingConfig',
+    'socialnetworking.apps.SocialnetworkingConfig',
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
@@ -112,7 +111,7 @@ TEMPLATES = [
 ]
 
 # WSGI_APPLICATION = 'socialnetworkapi.wsgi.application'
-ASGI_APPLICATION = "socialnetworkapi.socialnetworkapi.asgi.application"
+ASGI_APPLICATION = "socialnetworkapi.asgi.application"
 
 CHANNEL_LAYERS = {
     "default": {

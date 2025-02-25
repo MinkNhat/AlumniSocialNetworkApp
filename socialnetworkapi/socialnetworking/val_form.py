@@ -1,5 +1,5 @@
 from django import forms
-from socialnetworkapi.socialnetworking.models import Media
+from socialnetworking.models import Media
 
 
 class MediaAdminForm(forms.ModelForm):

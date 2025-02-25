@@ -1,1 +1,1 @@
-web: daphne -b 0.0.0.0 -p $PORT socialnetworkapi.socialnetworkapi.asgi:application
+web: daphne -b 0.0.0.0 -p $PORT socialnetworkapi.asgi:application

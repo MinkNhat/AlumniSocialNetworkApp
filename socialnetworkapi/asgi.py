@@ -10,8 +10,9 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
 import os
 
 import django
+from socialnetworkapi.routing import application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'socialnetworkapi.socialnetworkapi.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'socialnetworkapi.settings')
 django.setup()
 
-from socialnetworkapi.socialnetworkapi.routing import application
+
