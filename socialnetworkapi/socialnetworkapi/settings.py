@@ -93,7 +93,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'socialnetworkapi.socialnetworkapi.urls'
+ROOT_URLCONF = 'socialnetworkapi.urls'
 
 TEMPLATES = [
     {
