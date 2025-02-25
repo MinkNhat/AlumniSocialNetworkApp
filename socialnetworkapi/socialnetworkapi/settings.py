@@ -133,9 +133,29 @@ CHANNEL_LAYERS = {
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
-}
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
+# }
+
+JAWSDB_URL = os.environ.get('JAWSDB_URL')
+
+if JAWSDB_URL:
+    # Phân tích JAWSDB_URL để lấy thông tin kết nối db
+    DATABASES = {
+        'default': dj_database_url.parse(JAWSDB_URL)
+    }
+else:
+    # Cấu hình db cho local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'socialnetworkdb',
+            'USER': 'root',
+            'PASSWORD': 'Admin@123',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
 
 
 # Password validation
