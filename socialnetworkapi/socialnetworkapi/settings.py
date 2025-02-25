@@ -48,6 +48,8 @@ DEBUG = False
 # media root
 MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
 
+STATIC_URL = '/static/'
+
 CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
 ALLOWED_HOSTS = [
