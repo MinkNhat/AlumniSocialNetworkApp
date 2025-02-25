@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfff778a-cc19-4530-a7a1-ca0ff19e7576" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialnetworkapi/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/manage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +26,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/macbook/Learn/AlumniSocialNetworkApp",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -41,6 +43,7 @@
       <updated>1735897012056</updated>
       <workItem from="1735897014518" duration="4000" />
       <workItem from="1740412187442" duration="70000" />
+      <workItem from="1740482040558" duration="321000" />
     </task>
     <servers />
   </component>
