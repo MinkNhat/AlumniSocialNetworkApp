@@ -141,12 +141,7 @@ JAWSDB_URL = os.environ.get('JAWSDB_URL')
 if JAWSDB_URL:
     # Phân tích JAWSDB_URL để lấy thông tin kết nối db
     DATABASES = {
-        'default': dj_database_url.config(
-            default=JAWSDB_URL,
-            engine="django.db.backends.mysql",
-            conn_max_age=600,
-            ssl_require=True
-        )
+        'default': dj_database_url.parse(JAWSDB_URL)
     }
 else:
     # Cấu hình db cho local
