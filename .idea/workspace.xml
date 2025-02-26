@@ -7,22 +7,10 @@
     <list default="true" id="cfff778a-cc19-4530-a7a1-ca0ff19e7576" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/AlumniSocialNetworkApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AlumniSocialNetworkApp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/consumers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/firebase_config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/firebaseadminsdk.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/routing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworkapi/wsgi.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/apps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/val_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/val_form.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/socialnetworking/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +54,7 @@
       <workItem from="1740412187442" duration="70000" />
       <workItem from="1740482040558" duration="900000" />
       <workItem from="1740492303259" duration="306000" />
-      <workItem from="1740493197351" duration="789000" />
+      <workItem from="1740493197351" duration="5489000" />
     </task>
     <servers />
   </component>
