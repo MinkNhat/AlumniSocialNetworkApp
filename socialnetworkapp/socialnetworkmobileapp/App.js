@@ -34,12 +34,15 @@ import ChangePassword from './app/ChangePassword';
 import CreateEventPost from './app/CreateEventPost';
 import CreateSurveyPost from './app/CreateSurveyPost';
 import TimeLine from './app/TimeLine';
+import Constants from 'expo-constants';
 
 // config prevent warning from reanimated
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
   strict: false, // default = true
 });
+
+console.log("Expo Config Extra:", Constants.expoConfig.extra);
 
 
 const Stack = createNativeStackNavigator()

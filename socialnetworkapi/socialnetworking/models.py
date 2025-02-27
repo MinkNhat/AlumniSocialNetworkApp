@@ -53,7 +53,7 @@ class User(AbstractUser):
     introduce = models.CharField(max_length=50, null=True, blank=True)
 
     student_id = models.CharField(max_length=20, null=True, blank=True, unique=True)
-    is_verify = models.BooleanField(default=False)
+    is_verify = models.BooleanField(default=True)
     updated_date = models.DateTimeField(auto_now=True)
     password_changed = models.BooleanField(default=False)
     password_change_time = models.DateTimeField(null=True, blank=True)
