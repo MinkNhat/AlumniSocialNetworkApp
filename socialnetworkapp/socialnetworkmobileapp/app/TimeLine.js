@@ -23,6 +23,8 @@ const TimeLine = () => {
     const {targetUser} = route?.params
     const backgroundDefault = 'https://res.cloudinary.com/dbmwgavqz/image/upload/v1739285564/plain-grey-background-ydlwqztavi78gl24_nq4dro.jpg'
 
+    // console.log(targetUser)
+
     const loadPosts = async () => {
       if(page > 0) {
         setLoading(true)
@@ -81,14 +83,25 @@ const TimeLine = () => {
         <View style={styles.infoContainer}>
           <Avatar rounded={'50%'} size={hp(10)} uri={targetUser?.avatar} style={{backgroundColor: 'white'}}/>
           <View style={styles.userInfoContainer}>
-            <Text style={styles.usernameText}>
-              {getFullName(targetUser.first_name, targetUser.last_name)}
-            </Text>
-            <View style={{width: '86%'}}>
-              <Text style={styles.bioText}>
-                123 567 90 123 567 90 123 567 90 123 567 90 123 567 90
-              </Text>
-            </View>
+            {targetUser.introduce!=="" ? 
+              (
+                <Text style={[styles.usernameText, {marginTop: 10}]}>
+                  {getFullName(targetUser.first_name, targetUser.last_name)}
+                </Text>
+              ):
+              (
+                <View>
+                  <Text style={styles.usernameText}>
+                    {getFullName(targetUser.first_name, targetUser.last_name)}
+                  </Text>
+                  <View style={{width: '86%'}}>
+                    <Text style={styles.bioText}>
+                      {targetUser.introduce}
+                    </Text>
+                  </View>
+                </View>
+              )
+            }
           </View>
         </View>
       </View>

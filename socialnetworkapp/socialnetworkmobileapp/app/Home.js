@@ -199,7 +199,7 @@ const Home = () => {
               <Icon name={'plus'} size={hp(3.2)} strokeWidth={2} color={Theme.colors.text}/>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {nav.navigate('time-line', targetUser={...user})}}>
+            <TouchableOpacity onPress={() => {nav.navigate('time-line', {targetUser: user})}}>
               {user.avatar? 
                 <Avatar 
                   uri={user.avatar}
