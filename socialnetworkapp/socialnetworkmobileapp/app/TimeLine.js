@@ -77,7 +77,11 @@ const TimeLine = () => {
       }}
       scrollEventThrottle={400}
     >
-      <Avatar uri={backgroundDefault} size={hp(12)} style={{width: '100%'}}/>
+      {targetUser?.cover_image ? (
+        <Avatar uri={targetUser.cover_image} size={hp(12)} style={{width: '100%'}}/>
+      ):(
+        <Avatar uri={backgroundDefault} size={hp(12)} style={{width: '100%'}}/>
+      )}
 
       <View style={{width: '100%', height: '90'}}>
         <View style={styles.infoContainer}>
@@ -109,7 +113,13 @@ const TimeLine = () => {
       {
         user.id === targetUser.id ? (
           <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 4}}>
-            <Button title='Chỉnh sửa trang cá nhân' hasShadow={false} buttonStyle={styles.editButton} textStyle={styles.buttonText}/>
+            <Button 
+              title='Chỉnh sửa trang cá nhân' 
+              hasShadow={false} 
+              buttonStyle={styles.editButton} 
+              textStyle={styles.buttonText}
+              onPress={() => nav.navigate('edit-profile')}
+            />
           </View>
         ) : (
           <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 4}}>

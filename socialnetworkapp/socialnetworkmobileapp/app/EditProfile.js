@@ -22,17 +22,14 @@ const EditProfile = () => {
     const [err, setErr] = useState(false)
     const [errMessage, setErrMessage] = useState(null)
     const backgroundDefault = 'https://res.cloudinary.com/dbmwgavqz/image/upload/v1739285564/plain-grey-background-ydlwqztavi78gl24_nq4dro.jpg'
-    const [newAvatar, setNewAvatar] = useState({});
-    const [newBackground, setNewBackground] = useState({});
+    const [newAvatar, setNewAvatar] = useState(null);
+    const [newBackground, setNewBackground] = useState(null);
     const currentUser = useContext(MyUserContext)
     const nav = useNavigation()
 
     useEffect(() => {
         setUser(currentUser)
-        // user.avatar = currentUser.avatar
-        
     }, [])
-
     console.log(user)
 
     const users = {
@@ -82,8 +79,6 @@ const EditProfile = () => {
                     setNewBackground(result.assets[0])
                 }
             }
-                
-
         }
     }
 
@@ -93,19 +88,13 @@ const EditProfile = () => {
             const value = user[field]
 
             const error = validateField(field, value, user)
+            
             if(error) {
                 setErr(true)
                 setErrMessage(error)
                 return false
             }
         }
-
-        if(!user.avatar) {
-            setErr(true)
-            setErrMessage({'msg':'Vui lòng chọn ảnh đại diện!', 'field':'avatar'})
-            return false
-        }
-
         return true
     }
 
@@ -117,7 +106,7 @@ const EditProfile = () => {
                 form.append(key, user[key])
             }
 
-            if(newAvatar) {
+            if(newAvatar?.uri) {
                 form.append('avatar', {
                     uri: newAvatar.uri,
                     name: newAvatar.fileName,
@@ -125,7 +114,7 @@ const EditProfile = () => {
                 })
             }
 
-            if(newBackground) {
+            if(newBackground?.uri) {
                 form.append('cover_image', {
                     uri: newBackground.uri,
                     name: newBackground.fileName,
@@ -133,14 +122,21 @@ const EditProfile = () => {
                 })
             }
 
+            console.log("FormData:", {
+                avatar: newAvatar?.uri,
+                cover_image: newBackground?.uri
+            });
+
             setLoading(true)
             try {
                 const token = await getToken("token")
-                await authApis(token).patch(endpoints['current-user'], form, {
+                let res = await authApis(token).patch(endpoints['current-user'], form, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
+
+                console.info(res)
         
                 DevSettings.reload()
                 nav.goBack()
@@ -169,22 +165,18 @@ const EditProfile = () => {
             <KeyboardAvoidingView style={{gap: 20}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <View>  
                     <View style={styles.container}>
-                        {user.avatar && user.avatar !== '' ? (
-                            <Image 
-                                source={{ uri: newAvatar?.uri ? newAvatar.uri : user.avatar }} 
-                                style={styles.avatar} 
-                            />
+                        {newAvatar?.uri ? (
+                            <Image source={{ uri: newAvatar.uri }} style={styles.avatar} />
+                        ) : user.avatar?.startsWith('http') ? (
+                            <Image source={{ uri: user.avatar }} style={styles.avatar} />
                         ) : (
-                            <Image 
-                                source={require('../assets/images/avatar-default.png')} 
-                                style={styles.avatar} 
-                            />
+                            <Image source={require('../assets/images/avatar-default.png')} style={styles.avatar} />
                         )}
+
                         <TouchableOpacity onPress={() => pickImage(true)} style={styles.chooseImageContainer}>
                             <Text style={styles.text}>Chọn ảnh đại diện</Text>
                             <Icon name={'camera'} size={20} />
                         </TouchableOpacity>
-
 
                         <TouchableOpacity onPress={() => pickImage(false)} style={styles.container}>
                             {newBackground?.uri ? (

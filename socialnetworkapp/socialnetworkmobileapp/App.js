@@ -69,6 +69,7 @@ const HomeStackNavigator = () => {
       <Stack.Screen name='create-event-post' component={CreateEventPost}/>
       <Stack.Screen name='time-line' component={TimeLine}/>
       <Stack.Screen name='post-details' component={PostDetails} options={{presentation: 'modal'}}/>
+      <Stack.Screen name='edit-profile' component={EditProfile}/>
     </Stack.Navigator>
   )
 }
