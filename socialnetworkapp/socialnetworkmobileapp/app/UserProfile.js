@@ -63,7 +63,7 @@ const UserProfile = () => {
         </View>
       </View>
       
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => {nav.navigate('edit-profile')}}>
         <View style={styles.editProfile}>
           <Text>Chỉnh sửa thông tin cá nhân</Text>
             <View style={styles.editIcon}>

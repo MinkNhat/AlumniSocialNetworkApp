@@ -83,7 +83,7 @@ const TimeLine = () => {
         <View style={styles.infoContainer}>
           <Avatar rounded={'50%'} size={hp(10)} uri={targetUser?.avatar} style={{backgroundColor: 'white'}}/>
           <View style={styles.userInfoContainer}>
-            {targetUser.introduce!=="" ? 
+            {!targetUser.introduce ? 
               (
                 <Text style={[styles.usernameText, {marginTop: 10}]}>
                   {getFullName(targetUser.first_name, targetUser.last_name)}
@@ -94,7 +94,7 @@ const TimeLine = () => {
                   <Text style={styles.usernameText}>
                     {getFullName(targetUser.first_name, targetUser.last_name)}
                   </Text>
-                  <View style={{width: '86%'}}>
+                  <View style={{width: '100%'}}>
                     <Text style={styles.bioText}>
                       {targetUser.introduce}
                     </Text>

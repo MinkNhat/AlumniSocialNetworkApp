@@ -35,6 +35,7 @@ import CreateEventPost from './app/CreateEventPost';
 import CreateSurveyPost from './app/CreateSurveyPost';
 import TimeLine from './app/TimeLine';
 import Constants from 'expo-constants';
+import EditProfile from './app/EditProfile';
 
 // config prevent warning from reanimated
 configureReanimatedLogger({
@@ -42,7 +43,7 @@ configureReanimatedLogger({
   strict: false, // default = true
 });
 
-console.log("Expo Config Extra:", Constants.expoConfig.extra);
+// console.log("Expo Config Extra:", Constants.expoConfig.extra);
 
 
 const Stack = createNativeStackNavigator()
@@ -87,6 +88,7 @@ const ProfileStackNavigator = () => {
       <Stack.Screen name='user-profile' component={UserProfile}/>
       <Stack.Screen name='change-password' component={ChangePassword}/>
       <Stack.Screen name='time-line' component={TimeLine}/>
+      <Stack.Screen name='edit-profile' component={EditProfile}/>
     </Stack.Navigator>
   )
 }
