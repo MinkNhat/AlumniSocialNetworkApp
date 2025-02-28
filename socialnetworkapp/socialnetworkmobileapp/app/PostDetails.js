@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
     inputWrapper: {
         position: 'absolute',
-        bottom: wp(4),
+        bottom: wp(20),
         left: 0,
         right: 0,
         backgroundColor: 'white',

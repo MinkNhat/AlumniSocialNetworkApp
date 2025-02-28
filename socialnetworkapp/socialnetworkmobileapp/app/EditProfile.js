@@ -14,7 +14,7 @@ import Icon from '../assets/icons'
 import { Theme } from '../configs/Theme'
 import { HelperText } from 'react-native-paper'
 import { validateField } from '../configs/ValidateInput'
-import { MyUserContext } from '../configs/MyUserContext'
+import { MyDispatchContext, MyUserContext } from '../configs/MyUserContext'
 
 const EditProfile = () => {
     const [user, setUser] = useState({})
@@ -22,15 +22,29 @@ const EditProfile = () => {
     const [err, setErr] = useState(false)
     const [errMessage, setErrMessage] = useState(null)
     const backgroundDefault = 'https://res.cloudinary.com/dbmwgavqz/image/upload/v1739285564/plain-grey-background-ydlwqztavi78gl24_nq4dro.jpg'
-    const [newAvatar, setNewAvatar] = useState(null);
-    const [newBackground, setNewBackground] = useState(null);
+    const [newAvatar, setNewAvatar] = useState(null)
+    const [newBackground, setNewBackground] = useState(null)
     const currentUser = useContext(MyUserContext)
+    const dispatch = useContext(MyDispatchContext)
     const nav = useNavigation()
 
     useEffect(() => {
         setUser(currentUser)
     }, [])
-    console.log(user)
+    
+    const refreshUser = async () => {
+        try {
+            const token = await getToken('token')
+            const response = await authApis(token).get(endpoints['current-user'])
+            
+            dispatch({
+                type: 'login',
+                payload: response.data,
+            });
+        } catch (error) {
+            console.error("Lỗi khi cập nhật thông tin user:", error);
+        }
+    };
 
     const users = {
         'first_name': {
@@ -48,13 +62,13 @@ const EditProfile = () => {
         'email': {
             'title': 'Email',
             'field': 'email',
-            'icon': 'userInfo',
+            'icon': 'mail',
             'secure': false
         },
         'introduce': {
             'title': 'Giới thiệu bản thân',
             'field': 'introduce',
-            'icon': 'userInfo',
+            'icon': 'list',
             'secure': false
         },
     }
@@ -122,11 +136,6 @@ const EditProfile = () => {
                 })
             }
 
-            console.log("FormData:", {
-                avatar: newAvatar?.uri,
-                cover_image: newBackground?.uri
-            });
-
             setLoading(true)
             try {
                 const token = await getToken("token")
@@ -136,9 +145,7 @@ const EditProfile = () => {
                     }
                 })
 
-                console.info(res)
-        
-                DevSettings.reload()
+                await refreshUser()
                 nav.goBack()
             } catch(ex) { 
                 // setErr(true)

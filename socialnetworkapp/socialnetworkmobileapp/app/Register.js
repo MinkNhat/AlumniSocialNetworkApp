@@ -40,13 +40,13 @@ const Register = () => {
         'student_id': {
             'title': 'Mã sinh viên',
             'field': 'student_id',
-            'icon': 'userInfo',
+            'icon': 'edit',
             'secure': false
         },
         'email': {
             'title': 'Email',
             'field': 'email',
-            'icon': 'userInfo',
+            'icon': 'mail',
             'secure': false
         },
         'username': {

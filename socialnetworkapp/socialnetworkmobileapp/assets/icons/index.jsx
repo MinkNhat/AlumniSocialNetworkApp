@@ -32,6 +32,7 @@ import Add from './Add';
 import Canledar from './Canledar';
 import Star from './Star';
 import List from './List';
+import Message from './Message';
 
 
 
@@ -67,6 +68,7 @@ const icons = {
     canledar: Canledar,
     star: Star,
     list: List,
+    message: Message,
 
 }
 

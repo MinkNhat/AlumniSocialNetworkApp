@@ -123,48 +123,110 @@ const Home = () => {
     }
   }
 
-  const loadMoreData = () => {
-    if (!loading) {
-      if (postPage > 0 && hasMorePost && posts.length>7) setPostPage(postPage + 1)
-      if (eventPage > 0 && hasMoreEvent && events.length>7) setEventPage(eventPage + 1)
-      if (surveyPage > 0 && hasMoreSurvey && surveys.length>7) setSurveyPage(surveyPage + 1)
+  // const loadMoreData = () => {
+  //   if (!loading) {
+  //     if (postPage > 0 && hasMorePost && posts.length>7) setPostPage(postPage + 1)
+  //     if (eventPage > 0 && hasMoreEvent && events.length>7) setEventPage(eventPage + 1)
+  //     if (surveyPage > 0 && hasMoreSurvey && surveys.length>7) setSurveyPage(surveyPage + 1)
+  //   }
+  // }
+
+  // const refresh = () => {
+  //   setMixItems([])
+  //   setIsFirstLoad(true)
+
+  //   setPostPage(1)
+  //   setHasMorePost(true)
+
+  //   setEventPage(1)
+  //   setHasMoreEvent(true)
+
+  //   setSurveyPage(1)
+  //   setHasMoreSurvey(true)
+  // }
+
+  const loadData = async () => {
+    setLoading(true);
+    try {
+        // Gọi API đồng thời để lấy tất cả bài viết, sự kiện và khảo sát
+        const [postRes, eventRes, surveyRes] = await Promise.all([
+            APIs.get(`${endpoints['posts']}?page=${postPage}`),
+            APIs.get(`${endpoints['events']}?page=${eventPage}`),
+            APIs.get(`${endpoints['surveys']}?page=${surveyPage}`)
+        ]);
+
+        // Định dạng dữ liệu, thêm thuộc tính type để phân biệt
+        setPosts(postRes.data.results)
+        const newPosts = postRes.data.results.map(post => ({ ...post, type: "post" }));
+        const newEvents = eventRes.data.results.map(event => ({ ...event, type: "event" }));
+        const newSurveys = surveyRes.data.results.map(survey => ({ ...survey, type: "survey" }));
+
+        // Gộp tất cả dữ liệu lại và sắp xếp theo thời gian
+        const allItems = [...newPosts, ...newEvents, ...newSurveys].sort(
+            (a, b) => new Date(b.created_date) - new Date(a.created_date)
+        );
+
+        setMixItems(allItems);
+
+        // Cập nhật trạng thái để biết có còn dữ liệu để load tiếp không
+        setHasMorePost(postRes.data.next !== null);
+        setHasMoreEvent(eventRes.data.next !== null);
+        setHasMoreSurvey(surveyRes.data.next !== null);
+
+        // Cập nhật page để load thêm nếu cần
+        setPostPage(prev => (postRes.data.next ? prev + 1 : prev));
+        setEventPage(prev => (eventRes.data.next ? prev + 1 : prev));
+        setSurveyPage(prev => (surveyRes.data.next ? prev + 1 : prev));
+
+    } catch (error) {
+        console.error("Lỗi khi tải dữ liệu:", error);
+    } finally {
+        setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    loadData();
+}, []);
+
+const loadMoreData = () => {
+  if (!loading) {
+      loadData();
   }
+};
 
-  const refresh = () => {
-    setMixItems([])
-    setIsFirstLoad(true)
+const refresh = () => {
+  setMixItems([]);
+  setPostPage(1);
+  setEventPage(1);
+  setSurveyPage(1);
+  setHasMorePost(true);
+  setHasMoreEvent(true);
+  setHasMoreSurvey(true);
+  loadData();
+};
 
-    setPostPage(1)
-    setHasMorePost(true)
 
-    setEventPage(1)
-    setHasMoreEvent(true)
+//   useEffect(() => {
+//     loadPosts()
+//   }, [postPage])
 
-    setSurveyPage(1)
-    setHasMoreSurvey(true)
-  }
+//   useEffect(() => {
+//     loadEvents()
+//   }, [eventPage])
 
-  useEffect(() => {
-    loadPosts()
-  }, [postPage])
+//   useEffect(() => {
+//     loadSurveys()
+//   }, [surveyPage])
 
-  useEffect(() => {
-    loadEvents()
-  }, [eventPage])
-
-  useEffect(() => {
-    loadSurveys()
-  }, [surveyPage])
-
-  useEffect(() => {
-    if (isFirstLoad) {
-      setMixItems(current => 
-          [...current].sort((a, b) => new Date(b.created_date) - new Date(a.created_date))
-      )
-      setIsFirstLoad(false)
-    }
-}, [])
+//   useEffect(() => {
+//     if (isFirstLoad) {
+//       setMixItems(current => 
+//           [...current].sort((a, b) => new Date(b.created_date) - new Date(a.created_date))
+//       )
+//       setIsFirstLoad(false)
+//     }
+// }, [])
 
   const deletePost = (postId) => {
     setPosts(posts => posts.filter(post => post.id !== postId))
@@ -186,11 +248,11 @@ const Home = () => {
             {user.role === "ADMIN" && (
               <View style={{flexDirection: 'row', gap: 14}}>
                 <TouchableOpacity onPress={() => {nav.navigate('create-event-post')}}>
-                  <Icon name={'add'} size={hp(3.2)} strokeWidth={2} color={Theme.colors.text}/>
+                  <Icon name={'list'} size={hp(3.2)} strokeWidth={2} color={Theme.colors.text}/>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {nav.navigate('create-survey-post')}}>
-                  <Icon name={'list'} size={hp(3.2)} strokeWidth={2} color={Theme.colors.text}/>
+                  <Icon name={'add'} size={hp(3.2)} strokeWidth={2} color={Theme.colors.text}/>
                 </TouchableOpacity>
               </View>
             )}

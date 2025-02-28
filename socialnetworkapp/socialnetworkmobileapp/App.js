@@ -36,6 +36,7 @@ import CreateSurveyPost from './app/CreateSurveyPost';
 import TimeLine from './app/TimeLine';
 import Constants from 'expo-constants';
 import EditProfile from './app/EditProfile';
+import { Theme } from './configs/Theme';
 
 // config prevent warning from reanimated
 configureReanimatedLogger({
@@ -94,12 +95,34 @@ const ProfileStackNavigator = () => {
   )
 }
 
+const CustomTabBarStyle = {
+  position: 'absolute',
+  height: 80, // Độ cao của bottom bar
+  left: 20, // Căn lề trái để tạo bo góc
+  right: 20, // Căn lề phải để tạo bo góc
+  // bottom: 20, // Khoảng cách từ bottom
+  borderTopLeftRadius: 25, // Bo góc trên trái
+  borderTopRightRadius: 25, // Bo góc trên phải
+  backgroundColor: 'white',
+  borderWidth: 0.2,
+  paddingTop: 4,
+  borderColor: Theme.colors.text,
+}
+
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
-      <Tab.Screen name="home-stack" component={HomeStackNavigator} options={{title: "Màn hình chính", tabBarIcon: () => <Icon name={'home'} size={20} />}} />
-      <Tab.Screen name="chat" component={ChatStackNavigator} options={{title: "Chatbox", tabBarIcon: () => <Icon name={'user'} size={20} />}} />
-      <Tab.Screen name="profile" component={ProfileStackNavigator} options={{title: "Tài khoản", tabBarIcon: () => <Icon name={'lock'} size={20} />}} />
+    <Tab.Navigator screenOptions={{
+      headerShown: false,
+      tabBarStyle: CustomTabBarStyle, // Custom tab bar
+      // tabBarShowLabel: false, // Ẩn label nếu muốn chỉ hiển thị icon
+      tabBarActiveTintColor: Theme.colors.primaryDark, // Màu chữ khi active
+      tabBarInactiveTintColor: '#A0A0A0', // Màu chữ khi không active
+      tabBarLabelStyle: {fontSize: 12}
+      }}
+    >
+      <Tab.Screen name="home-stack" component={HomeStackNavigator} options={{title: "Home", tabBarIcon: () => <Icon name={'home'} size={20} color={Theme.colors.text}/>}} />
+      <Tab.Screen name="chat" component={ChatStackNavigator} options={{title: "Chat", tabBarIcon: () => <Icon name={'message'} size={20} color={Theme.colors.text}/>}} />
+      <Tab.Screen name="profile" component={ProfileStackNavigator} options={{title: "Profile", tabBarIcon: () => <Icon name={'user'} size={20} color={Theme.colors.text}/>}} />
     </Tab.Navigator>
   );
 }

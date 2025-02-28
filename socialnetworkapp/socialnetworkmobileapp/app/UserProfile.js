@@ -65,7 +65,7 @@ const UserProfile = () => {
       
       <TouchableOpacity onPress={() => {nav.navigate('edit-profile')}}>
         <View style={styles.editProfile}>
-          <Text>Chỉnh sửa thông tin cá nhân</Text>
+          <Text style={{color: Theme.colors.text, fontSize: 16}}>Chỉnh sửa thông tin cá nhân</Text>
             <View style={styles.editIcon}>
               <Icon name={'edit'} size={30} color={Theme.colors.dark}/>
             </View>
@@ -74,9 +74,9 @@ const UserProfile = () => {
 
       <TouchableOpacity onPress={() => {nav.navigate('change-password')}}>
         <View style={[styles.editProfile, {marginTop: -hp(4)}]}>
-          <Text>Đổi mật khẩu</Text>
+          <Text style={{color: Theme.colors.text, fontSize: 16}}>Đổi mật khẩu</Text>
           <View style={styles.editIcon}>  
-            <Icon name={'edit'} size={30} color={Theme.colors.dark}/>
+            <Icon name={'lock'} size={30} color={Theme.colors.dark}/>
           </View>
         </View>
       </TouchableOpacity>

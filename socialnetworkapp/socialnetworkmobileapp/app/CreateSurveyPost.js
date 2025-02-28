@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     buttonSubmit: {
         height: hp(6),
         marginHorizontal: wp(4),
-        marginBottom: hp(2),
+        marginBottom: hp(10),
         marginTop: hp(3)
     },
     inputContainer: {
