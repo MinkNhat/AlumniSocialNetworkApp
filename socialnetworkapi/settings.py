@@ -137,11 +137,16 @@ CHANNEL_LAYERS = {
 # }
 
 JAWSDB_URL = os.environ.get('JAWSDB_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if JAWSDB_URL:
     # Phân tích JAWSDB_URL để lấy thông tin kết nối db
     DATABASES = {
         'default': dj_database_url.parse(JAWSDB_URL)
+    }
+elif DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
 else:
     # Cấu hình db cho local
@@ -155,6 +160,10 @@ else:
             'PORT': '3306',
         }
     }
+
+
+# Đảm bảo sử dụng SSL nếu Aiven yêu cầu
+DATABASES['default']['OPTIONS'] = {'ssl': {'ca': os.getenv('AIVEN_CA_CERT', '')}}
 
 
 # Password validation

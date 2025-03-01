@@ -36,92 +36,92 @@ const Home = () => {
   //   (a, b) => new Date(b.created_date) - new Date(a.created_date)
   // )
  
-  const loadPosts = async () => {
-    setLoading(true)
-    try {
-      if(postPage > 0) {
-        let res = await APIs.get(`${endpoints['posts']}?page=${postPage}`)
-        let newPosts = res.data.results.map(post => ({ ...post, type: "post" }))
+  // const loadPosts = async () => {
+  //   setLoading(true)
+  //   try {
+  //     if(postPage > 0) {
+  //       let res = await APIs.get(`${endpoints['posts']}?page=${postPage}`)
+  //       let newPosts = res.data.results.map(post => ({ ...post, type: "post" }))
       
-        if(postPage > 1) {
-          setPosts(current => [...current, ...newPosts])
-          setMixItems(current => [...current, ...newPosts])
-        } else {
-          setPosts(newPosts)
-          if(isFirstLoad) {
-            setMixItems(current => [...current, ...newPosts])
-          }
-        }
+  //       if(postPage > 1) {
+  //         setPosts(current => [...current, ...newPosts])
+  //         setMixItems(current => [...current, ...newPosts])
+  //       } else {
+  //         setPosts(newPosts)
+  //         if(isFirstLoad) {
+  //           setMixItems(current => [...current, ...newPosts])
+  //         }
+  //       }
 
-        if (!res.data.next) {
-          setPostPage(0)
-          setHasMorePost(false)
-        }
-      }
-    } catch(ex) {
-      console.error(ex)
-    } finally {
-      setLoading(false)
-    }
-  }
+  //       if (!res.data.next) {
+  //         setPostPage(0)
+  //         setHasMorePost(false)
+  //       }
+  //     }
+  //   } catch(ex) {
+  //     console.error(ex)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
 
-  const loadEvents = async () => {
-    setLoading(true)
-    try {
-      if(eventPage > 0) {
-        let res = await APIs.get(`${endpoints['events']}?page=${eventPage}`)
-        let newEvents = res.data.results.map(event => ({ ...event, type: "event" }))
+  // const loadEvents = async () => {
+  //   setLoading(true)
+  //   try {
+  //     if(eventPage > 0) {
+  //       let res = await APIs.get(`${endpoints['events']}?page=${eventPage}`)
+  //       let newEvents = res.data.results.map(event => ({ ...event, type: "event" }))
       
-        if(eventPage > 1) {
-          setEvents(current => [...current, ...newEvents])
-          setMixItems(current => [...current, ...newEvents])
-        } else {
-          setEvents(newEvents)
-          if(isFirstLoad) {
-            setMixItems(current => [...current, ...newEvents])
-          }
-        }
+  //       if(eventPage > 1) {
+  //         setEvents(current => [...current, ...newEvents])
+  //         setMixItems(current => [...current, ...newEvents])
+  //       } else {
+  //         setEvents(newEvents)
+  //         if(isFirstLoad) {
+  //           setMixItems(current => [...current, ...newEvents])
+  //         }
+  //       }
 
-        if (res.data.next === null) {
-          setEventPage(0)
-          setHasMoreEvent(false)
-        }
-      }
-    } catch(ex) {
-      console.error(ex)
-    } finally {
-      setLoading(false)
-    }
-  }
+  //       if (res.data.next === null) {
+  //         setEventPage(0)
+  //         setHasMoreEvent(false)
+  //       }
+  //     }
+  //   } catch(ex) {
+  //     console.error(ex)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
 
-  const loadSurveys = async () => {
-    setLoading(true)
-    try {
-      if(surveyPage > 0) {
-        let res = await APIs.get(`${endpoints['surveys']}?page=${surveyPage}`)
-        let newSurveys = res.data.results.map(survey => ({ ...survey, type: "survey" }))
+  // const loadSurveys = async () => {
+  //   setLoading(true)
+  //   try {
+  //     if(surveyPage > 0) {
+  //       let res = await APIs.get(`${endpoints['surveys']}?page=${surveyPage}`)
+  //       let newSurveys = res.data.results.map(survey => ({ ...survey, type: "survey" }))
 
-        if(surveyPage > 1) {
-          setSurveys(current => [...current, ...newSurveys])
-          setMixItems(current => [...current, ...newSurveys])
-        } else {
-          setSurveys(newSurveys)          
-          if(isFirstLoad) {
-            setMixItems(current => [...current, ...newSurveys])
-          }
-        }
+  //       if(surveyPage > 1) {
+  //         setSurveys(current => [...current, ...newSurveys])
+  //         setMixItems(current => [...current, ...newSurveys])
+  //       } else {
+  //         setSurveys(newSurveys)          
+  //         if(isFirstLoad) {
+  //           setMixItems(current => [...current, ...newSurveys])
+  //         }
+  //       }
 
-        if (res.data.next === null) {
-          setSurveyPage(0)
-          setHasMoreSurvey(false)
-        }
-      }
-    } catch(ex) {
-      console.error(ex)
-    } finally {
-      setLoading(false)
-    }
-  }
+  //       if (res.data.next === null) {
+  //         setSurveyPage(0)
+  //         setHasMoreSurvey(false)
+  //       }
+  //     }
+  //   } catch(ex) {
+  //     console.error(ex)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
 
   // const loadMoreData = () => {
   //   if (!loading) {
@@ -197,12 +197,15 @@ const loadMoreData = () => {
 
 const refresh = () => {
   setMixItems([]);
+
   setPostPage(1);
   setEventPage(1);
   setSurveyPage(1);
+
   setHasMorePost(true);
   setHasMoreEvent(true);
   setHasMoreSurvey(true);
+
   loadData();
 };
 
