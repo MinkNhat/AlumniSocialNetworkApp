@@ -163,7 +163,12 @@ else:
 
 
 # Đảm bảo sử dụng SSL nếu Aiven yêu cầu
-DATABASES['default']['OPTIONS'] = {'ssl': {'ca': os.getenv('AIVEN_CA_CERT', '')}}
+DATABASES['default']['OPTIONS'] = {
+    'ssl': {
+        'ca': '/run/secrets/ca.pem',
+        'check_hostname': True,
+    }
+}
 
 
 # Password validation
