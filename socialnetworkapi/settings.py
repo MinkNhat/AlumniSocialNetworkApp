@@ -165,7 +165,7 @@ else:
 # Đảm bảo sử dụng SSL nếu Aiven yêu cầu
 DATABASES['default']['OPTIONS'] = {
     'ssl': {
-        'ca': '/run/secrets/ca.pem',
+        'ca': '/etc/secrets/ca.pem',
         'check_hostname': True,
     }
 }
