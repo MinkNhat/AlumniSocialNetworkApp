@@ -146,7 +146,7 @@ if JAWSDB_URL:
     }
 elif DATABASE_URL:
     DATABASES = {
-        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
 else:
     # Cấu hình db cho local
@@ -163,12 +163,12 @@ else:
 
 
 # Đảm bảo sử dụng SSL nếu Aiven yêu cầu
-DATABASES['default']['OPTIONS'] = {
-    'ssl': {
-        'ca': '/etc/secrets/ca.pem',
-        'check_hostname': True,
-    }
-}
+# DATABASES['default']['OPTIONS'] = {
+#     'ssl': {
+#         'ca': '/etc/secrets/ca.pem',
+#         'check_hostname': True,
+#     }
+# }
 
 
 # Password validation

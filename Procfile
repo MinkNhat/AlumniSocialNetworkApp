@@ -1,1 +1,1 @@
-web: daphne -b 0.0.0.0 -p $PORT socialnetworkapi.asgi:application
+web: python manage.py migrate && daphne socialnetworkapi.asgi:application --port $PORT --bind 0.0.0.0
