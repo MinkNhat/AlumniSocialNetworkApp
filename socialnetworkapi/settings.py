@@ -174,7 +174,7 @@ else:
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Thư mục để collect static files
-STATICFILES_DIRS = [BASE_DIR / 'socialnetworking/static']  # Nếu bạn có static files trong app
+STATICFILES_DIRS = [BASE_DIR / 'socialnetworkapi/socialnetworking/static']
 
 # Media files configuration (nếu cần)
 MEDIA_URL = '/media/'
