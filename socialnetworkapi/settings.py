@@ -45,9 +45,9 @@ SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx
 DEBUG = False
 
 # media root
-MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
-
-STATIC_URL = '/static/'
+# MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
+#
+# STATIC_URL = '/static/'
 
 CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
@@ -83,6 +83,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -169,6 +170,15 @@ else:
 #         'check_hostname': True,
 #     }
 # }
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Thư mục để collect static files
+STATICFILES_DIRS = [BASE_DIR / 'socialnetworking/static']  # Nếu bạn có static files trong app
+
+# Media files configuration (nếu cần)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Password validation

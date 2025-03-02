@@ -7,6 +7,7 @@
     <list default="true" id="cfff778a-cc19-4530-a7a1-ca0ff19e7576" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialnetworkapi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/socialnetworkapi/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +52,7 @@
       <workItem from="1740412187442" duration="70000" />
       <workItem from="1740482040558" duration="900000" />
       <workItem from="1740492303259" duration="306000" />
-      <workItem from="1740493197351" duration="14324000" />
+      <workItem from="1740493197351" duration="15831000" />
     </task>
     <servers />
   </component>
