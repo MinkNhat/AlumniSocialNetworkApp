@@ -42,7 +42,7 @@ SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = False
+DEBUG = True
 
 # media root
 # MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
@@ -257,4 +257,7 @@ EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
 
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-b2ae.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-b2ae.up.railway.app',
+    'wss://web-production-b2ae.up.railway.app',
+]
