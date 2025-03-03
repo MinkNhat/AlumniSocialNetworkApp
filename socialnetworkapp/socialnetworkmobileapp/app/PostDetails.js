@@ -93,6 +93,7 @@ const PostDetails = () => {
 
     useEffect(() => {
         const ws = new WebSocket(`${WEBSOCKET_URL}${postId}/`)
+        console.log(`${WEBSOCKET_URL}${postId}/`)
     
         ws.onmessage = (event) => {
             const newEvent = JSON.parse(event.data)
