@@ -8,9 +8,6 @@
 - **Sự kiện & Khảo sát**: Theo dõi thông tin về các buổi gặp mặt, hội thảo trực tuyến và tham gia vào các khảo sát của quản trị viên.
 - **Trò chuyện cùng nhau**: Có thể kết nối và trò chuyện cùng bạn bè của bạn.
 
-## API
-[https://web-production-b2ae.up.railway.app](https://web-production-b2ae.up.railway.app)
-
 ## Ứng dụng (iOS & Android)
 Tải ứng dụng **Expo Go** và quét mã (hoặc ấn nút tham gia) trong link dưới đây để trải nghiệm ứng dụng:
 [https://byvn.net/12dl](https://byvn.net/12dl)
