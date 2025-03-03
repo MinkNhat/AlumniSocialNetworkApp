@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         right: 0,
         backgroundColor: 'white',
         paddingHorizontal: wp(4),
+        marginBottom: hp(10)
     },
     inputContainer: {
         flexDirection: 'row',

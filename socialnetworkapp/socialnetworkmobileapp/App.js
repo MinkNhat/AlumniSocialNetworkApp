@@ -4,7 +4,7 @@ import Index from './app/Index';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Welcome from './app/Welcome';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 import Login from './app/Login';
 import Register from './app/Register';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -79,7 +79,13 @@ const ChatStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name='chatlist' component={ChatListScreen}/>
-      <Stack.Screen name='chatscreen' component={ChatScreen}/>
+      <Stack.Screen
+        name="chatscreen"
+        component={ChatScreen}
+        options={({ route }) => ({
+          tabBarStyle: { display: 'none' }, // Ẩn tab bar
+        })}
+      />
     </Stack.Navigator>
   )
 }
@@ -111,14 +117,15 @@ const CustomTabBarStyle = {
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{
+    <Tab.Navigator 
+    screenOptions={({ route }) => ({
       headerShown: false,
-      tabBarStyle: CustomTabBarStyle, // Custom tab bar
-      // tabBarShowLabel: false, // Ẩn label nếu muốn chỉ hiển thị icon
-      tabBarActiveTintColor: Theme.colors.primaryDark, // Màu chữ khi active
-      tabBarInactiveTintColor: '#A0A0A0', // Màu chữ khi không active
-      tabBarLabelStyle: {fontSize: 12}
-      }}
+      tabBarStyle: CustomTabBarStyle,
+      tabBarActiveTintColor: Theme.colors.primaryDark,
+      tabBarInactiveTintColor: '#A0A0A0',
+      tabBarLabelStyle: { fontSize: 12 },
+      tabBarVisible: route.name !== 'chatscreen' || !useIsFocused(), // Ẩn khi ở ChatScreen
+    })}
     >
       <Tab.Screen name="home-stack" component={HomeStackNavigator} options={{title: "Home", tabBarIcon: () => <Icon name={'home'} size={20} color={Theme.colors.text}/>}} />
       <Tab.Screen name="chat" component={ChatStackNavigator} options={{title: "Chat", tabBarIcon: () => <Icon name={'message'} size={20} color={Theme.colors.text}/>}} />

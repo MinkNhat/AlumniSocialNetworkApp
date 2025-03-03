@@ -10,4 +10,4 @@
 
 ## Ứng dụng (iOS & Android)
 Tải ứng dụng **Expo Go** và quét mã (hoặc ấn nút tham gia) trong link dưới đây để trải nghiệm ứng dụng:
-[https://byvn.net/12dl](https://byvn.net/12dl)
+[https://byvn.net/6tMa](https://byvn.net/6tMa)
