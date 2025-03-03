@@ -246,3 +246,6 @@ EMAIL_HOST_PASSWORD = 'sopg qfme htmp zanp'
 EMAIL_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
+
+
+CSRF_TRUSTED_ORIGINS = ['https://web-production-b2ae.up.railway.app']
