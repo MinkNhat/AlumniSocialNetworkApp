@@ -187,7 +187,7 @@ const Register = () => {
                     </HelperText>
                 }   
 
-                <Button buttonStyle={{marginBottom: '40'}} loading={loading} title={'Đăng ký'} onPress={register} textStyle={{fontSize: '20'}}/>
+                <Button buttonStyle={{marginBottom: '40'}} loading={loading} title={'Đăng ký'} onPress={register} textStyle={{fontSize: 20}}/>
             </KeyboardAvoidingView>
         </ScrollView>
       </View>

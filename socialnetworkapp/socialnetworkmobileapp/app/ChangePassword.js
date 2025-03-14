@@ -100,7 +100,7 @@ const ChangePassword = () => {
                 </HelperText>
             }
 
-            <Button title={'Đổi mật khẩu'} loading={loading} onPress={changePassword} textStyle={{fontSize: '20'}}/>
+            <Button title={'Đổi mật khẩu'} loading={loading} onPress={changePassword} textStyle={{fontSize: 20}}/>
 
         </View>
     </ScreenWrapper>

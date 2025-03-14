@@ -21,6 +21,8 @@ import { authApis, endpoints } from '../configs/APIs';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import * as ImageManipulator from 'expo-image-manipulator';
+import { TextInput } from 'react-native-paper';
+
 
 const CreateNewPost = () => {
     const user = useContext(MyUserContext)
@@ -41,15 +43,21 @@ const CreateNewPost = () => {
     } = route?.params || {}
 
     useEffect(() => {
-        if (post?.caption) {
-            setBody(post.caption);
+        try {
+            if (post?.caption) {
+                setBody(typeof post.caption === "string" ? post.caption : "");
+            }
+
+            const normalizedMedia = Array.isArray(media) ? media : [];
+            if (normalizedMedia.length > 0) {
+                setFiles(normalizedMedia);
+            }
+        } catch (error) {
+            console.error("Lỗi trong useEffect:", error);
         }
 
-        if(media.length > 0) {
-            setFiles(media)
-            console.info(files)
-        }
-    }, [post.caption]);
+        
+    }, [post.caption, media]);
 
     const onPick = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -57,12 +65,12 @@ const CreateNewPost = () => {
             alert('Permission denied!') 
             return;
         } else {
+            console.info('Permission granted!')
             let mediaConfig = {
                 allowsMultipleSelection: true,
-                mediaTypes: ['images', 'videos'],
-                allowEditting: true,
-                aspest: [4, 3],
-                quanlity: 1,
+                mediaTypes: ImagePicker.MediaTypeOptions.All, 
+                aspect: [4, 3],
+                quality: 1,
             }
 
             const result = await ImagePicker.launchImageLibraryAsync(mediaConfig)
@@ -74,6 +82,10 @@ const CreateNewPost = () => {
     }
 
     const renderItem = ({ item }) => {
+        if (!item || typeof item !== 'object') {
+            return null;
+        }
+        
         let type = isUpdate ? item.media_type : item.type       
         let src = isUpdate ? item.file : item.uri
      
@@ -195,12 +207,20 @@ const CreateNewPost = () => {
             </View>
 
             <View style={styles.textEditor}>
+                {/* <TextInput
+                    style={styles.input}
+                    multiline
+                    placeholder="Nhập nội dung bài viết..."
+                    value={value}
+                    onChangeText={onChange}
+                /> */}
                 <RichTextEditer 
                     editorRef={editorRef}
                     // onChange={body => bodyRef.current = body}
                     onChange={setBody} 
-                    body={body}
+                    body={typeof body === "string" ? body : ""}
                 /> 
+                
             </View>
 
             {files.length > 0 && (

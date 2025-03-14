@@ -128,7 +128,7 @@ const Login = () => {
 
             <Text style={{alignSelf: 'flex-end', fontSize: 16, marginBottom: 20}}>Quên mật khẩu?</Text>
 
-            <Button title={'Đăng nhập'} loading={loading} onPress={login} textStyle={{fontSize: '20'}}/>
+            <Button title={'Đăng nhập'} loading={loading} onPress={login} textStyle={{fontSize: 20}}/>
 
             <View style={{flexDirection: 'row', margin: 'auto'}}>
                 <Text style={Styles.footerText}>Nếu chưa có tài khoản?</Text>

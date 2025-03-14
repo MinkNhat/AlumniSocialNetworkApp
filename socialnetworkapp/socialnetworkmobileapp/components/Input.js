@@ -18,7 +18,7 @@ const Input = (props) => {
         placeholderTextColor={Theme.colors.textLight}
         ref={props.inputRef && props.inputRef}
         secureTextEntry={props.passwordField && !showPass}
-        fontSize='18'
+        fontSize={18}
         autoCapitalize='none'
         autoCorrect={false}
         selectTextOnFocus={false}

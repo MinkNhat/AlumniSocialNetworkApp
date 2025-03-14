@@ -12,7 +12,7 @@ import Input from "../components/Input";
 const ChatScreen = ({ route }) => {
     const { senderId, receiverId } = route.params;
     const [messages, setMessages] = useState([]);
-    const [text, setText] = useState("");
+    const [text, setText] = useState([]);
 
     useEffect(() => {
         const unsubscribe = listenMessages(senderId, receiverId, setMessages);

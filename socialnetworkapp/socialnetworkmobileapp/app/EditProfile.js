@@ -217,7 +217,7 @@ const EditProfile = () => {
                     </HelperText>
                 }   
 
-                <Button buttonStyle={{marginBottom: '40'}} loading={loading} title={'Chỉnh sửa'} onPress={editProfile} textStyle={{fontSize: '20'}}/>
+                <Button buttonStyle={{marginBottom: '40'}} loading={loading} title={'Chỉnh sửa'} onPress={editProfile} textStyle={{fontSize: 20}}/>
             </KeyboardAvoidingView>
         </ScrollView>
       </View>
