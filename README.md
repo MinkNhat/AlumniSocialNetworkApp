@@ -9,5 +9,4 @@
 - **Trò chuyện cùng nhau**: Có thể kết nối và trò chuyện cùng bạn bè của bạn.
 
 ## Ứng dụng (iOS & Android)
-Tải ứng dụng **Expo Go** và quét mã (hoặc ấn nút tham gia) trong link dưới đây để trải nghiệm ứng dụng:
-[https://byvn.net/6tMa](https://byvn.net/6tMa)
+Tải ứng dụng **Expo Go** và quét QR code [tại đây](https://expo.dev/preview/update?message=final+build&updateRuntimeVersion=1.0.0&createdAt=2025-09-25T21%3A43%3A24.661Z&slug=exp&projectId=13a5b50b-0e33-415f-9092-b2f8f535c6a4&group=e0b3d29f-d1f2-4416-a88b-274ddf67c2fb) để trải nghiệm ứng dụng

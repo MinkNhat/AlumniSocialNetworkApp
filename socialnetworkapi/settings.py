@@ -38,11 +38,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'socialnetworking.User'
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx'
+# SECRET_KEY = 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!e8g^ff2j3g(2kgbjic)tk!iwzs4uu%4m!4(^)otr_yg)06vhx')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = True
+DEBUG = False
 
 # media root
 # MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR
@@ -52,13 +53,9 @@ DEBUG = True
 CKEDITOR_UPLOAD_PATH = "images/ckeditor/"
 
 ALLOWED_HOSTS = [
-    # '192.168.2.6',
-    # '172.20.10.3',
-    # '172.16.3.192',
-    # '172.16.40.10',
-    # '172.16.139.160',
-    # '192.168.1.91',
-    '*'
+    '159.65.7.106',
+    'localhost',
+    '*',
 ]
 
 
@@ -114,72 +111,80 @@ TEMPLATES = [
 # WSGI_APPLICATION = 'socialnetworkapi.wsgi.application'
 ASGI_APPLICATION = "socialnetworkapi.asgi.application"
 
+# localhost
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels.layers.InMemoryChannelLayer",
 #     },
 # }
 
+# cho docker
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(os.environ.get('REDIS_URL', 'redis://default:hPWjtughNFOsCWnyWpTbsMyVBBOnGFXo@redis.railway.internal:6379'))],
+            "hosts": [(os.environ.get('REDIS_URL', 'redis://redis:6379'))],
         },
     },
 }
 
+# cho railway
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [(os.environ.get('REDIS_URL', 'redis://default:hPWjtughNFOsCWnyWpTbsMyVBBOnGFXo@redis.railway.internal:6379'))],
+#         },
+#     },
+# }
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'socialnetworkdb',
-#         'USER': 'root',
-#         'PASSWORD': 'Admin@123',
-#         'HOST': ''
+# JAWSDB_URL = os.environ.get('JAWSDB_URL')
+# DATABASE_URL = os.environ.get('DATABASE_URL')
+#
+# if JAWSDB_URL:
+#     # Phân tích JAWSDB_URL để lấy thông tin kết nối db
+#     DATABASES = {
+#         'default': dj_database_url.parse(JAWSDB_URL)
 #     }
-# }
+# elif DATABASE_URL:
+#     DATABASES = {
+#         'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+#     }
+# else:
+#     # Cấu hình db cho local
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'socialnetworkdb',
+#             'USER': 'root',
+#             'PASSWORD': 'Admin@123',
+#             'HOST': 'localhost',
+#             'PORT': '3306',
+#         }
+#     }
 
-# DATABASES = {
-#     'default': dj_database_url.config(conn_max_age=600, ssl_require=False)
-# }
-
+# Database (dùng container MySQL)
 JAWSDB_URL = os.environ.get('JAWSDB_URL')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if JAWSDB_URL:
-    # Phân tích JAWSDB_URL để lấy thông tin kết nối db
-    DATABASES = {
-        'default': dj_database_url.parse(JAWSDB_URL)
-    }
+    DATABASES = {'default': dj_database_url.parse(JAWSDB_URL)}
 elif DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
-    }
+    DATABASES = {'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
 else:
-    # Cấu hình db cho local
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'socialnetworkdb',
             'USER': 'root',
-            'PASSWORD': 'Admin@123',
-            'HOST': 'localhost',
+            'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD', 'Admin@123'),
+            'HOST': 'mysql',
             'PORT': '3306',
         }
     }
-
-
-# Đảm bảo sử dụng SSL nếu Aiven yêu cầu
-# DATABASES['default']['OPTIONS'] = {
-#     'ssl': {
-#         'ca': '/etc/secrets/ca.pem',
-#         'check_hostname': True,
-#     }
-# }
-
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Thư mục để collect static files
@@ -223,17 +228,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 USE_I18N = True
-
 USE_TZ = False
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-# STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -260,4 +255,8 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
 CSRF_TRUSTED_ORIGINS = [
     'https://web-production-b2ae.up.railway.app',
     'wss://web-production-b2ae.up.railway.app',
+    'https://127.0.0.1:8000',
+    'ws://127.0.0.1:8000',
+    'http://159.65.7.106:8000',
+    'ws://159.65.7.106:8000',
 ]

@@ -1,0 +1,35 @@
+services:
+  web:
+    build: .
+    command: daphne -b 0.0.0.0 -p 8000 socialnetworkapi.asgi:application
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - redis
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: socialnetworkdb
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  redis:
+    image: redis:alpine
+    restart: always
+
+volumes:
+  mysql_data:
+  static_volume:
+  media_volume:
