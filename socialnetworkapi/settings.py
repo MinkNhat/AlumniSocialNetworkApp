@@ -43,7 +43,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!e8g^ff2j3g(2kgbjic)t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # media root
 # MEDIA_ROOT = '%s/socialnetworking/static/' % BASE_DIR

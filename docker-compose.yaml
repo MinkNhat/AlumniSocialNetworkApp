@@ -1,7 +1,36 @@
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: socialnetwork_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: socialnetworkdb
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+    networks:
+      - socialnetwork
+
+  redis:
+    image: redis:alpine
+    container_name: socialnetwork_redis
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - socialnetwork
+
   web:
     build: .
-    command: daphne -b 0.0.0.0 -p 8000 socialnetworkapi.asgi:application
+    container_name: socialnetwork_web
     volumes:
       - .:/app
       - static_volume:/app/staticfiles
@@ -11,23 +40,17 @@ services:
     env_file:
       - .env
     depends_on:
-      - mysql
-      - redis
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
     restart: always
+    networks:
+      - socialnetwork
 
-  mysql:
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_DATABASE: socialnetworkdb
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    volumes:
-      - mysql_data:/var/lib/mysql
-    restart: always
-
-  redis:
-    image: redis:alpine
-    restart: always
+networks:
+  socialnetwork:
+    driver: bridge
 
 volumes:
   mysql_data:

@@ -30,10 +30,10 @@
       "eas": {
         "projectId": "13a5b50b-0e33-415f-9092-b2f8f535c6a4"
       },
-      "CLIENT_ID": "asNtAr8WB2X2L4g33a73ae50eduMDR7uVOSwbKII",
-      "CLIENT_SECRET": "o8GabPHAgEnsCBoOO0k0xiC5OmRuMAixI3arMnLBSDJkDFOz1ytN3z4kbswODIlisPUZ0IioJMDCp5tkxG3SLhAWG46jc78DMq4QYMLVYJLpbsakaU48EArNuPBL3gI4",
-      "BASE_URL": "http://159.65.7.106:8000/",
-      "WEBSOCKET_URL": "ws://159.65.7.106:8000/ws/posts/"
+      "CLIENT_ID": "JhehWEImWm7eI45aYhMWpeEeh3JRcxIEGoYv7F3s",
+      "CLIENT_SECRET": "QxR5ulYEbSKhdlqDT5XmzqFUiB1rQAC8DFPoXCr1XtWcrYVf8lFU95l8LOItJttbDXe9md98pjrck0iQE1Ans11b5aAgmnjETpQqMcG1VecVkf3FzOgJ3X97C8KryQmq",
+      "BASE_URL": "https://unopportune-nongenetically-susie.ngrok-free.app/",
+      "WEBSOCKET_URL": "wss://unopportune-nongenetically-susie.ngrok-free.app/ws/posts/"
     }
   }
 }
